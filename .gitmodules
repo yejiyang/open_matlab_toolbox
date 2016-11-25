@@ -4,3 +4,6 @@
 [submodule "export_fig"]
 	path = export_fig
 	url = git@github.com:altmany/export_fig.git
+[submodule "matlab-plotting"]
+	path = matlab-plotting
+	url = git@github.com:jooh/matlab-plotting.git

@@ -21,4 +21,14 @@ install:
 
 `git submodule add https://github.com/dlegland/matGeom.git` 
 
-## 3. 
+## 3. matlab-plotting
+
+This repo is a collection of utility functions for figures in Matlab.
+
+[official matlab-plotting](https://github.com/jooh/matlab-plotting)
+
+install:
+
+`git submodule add git@github.com:jooh/matlab-plotting.git` 
+
+## 4. 
