@@ -1,0 +1,6 @@
+[submodule "matGeom"]
+	path = matGeom
+	url = https://github.com/dlegland/matGeom.git
+[submodule "export_fig"]
+	path = export_fig
+	url = git@github.com:altmany/export_fig.git
