@@ -1,4 +1,5 @@
-# A collection of open matlab toolboxs
+# open_matlab_toolbox
+A collection of open matlab toolboxs
 
 ## 1. export_fig
 
@@ -8,7 +9,7 @@ A toolbox for exporting figures from MATLAB to standard image and document forma
 
 install: 
 
-` git clone git@github.com:altmany/export_fig.git`
+` git submodule add git@github.com:altmany/export_fig.git`
 
 ## 2. matGeom
 
@@ -18,4 +19,6 @@ Matlab geometry toolbox for 2D/3D geometric computing
 
 install:
 
-` git clone git@github.com:dlegland/matGeom.git` 
+`git submodule add https://github.com/dlegland/matGeom.git` 
+
+
