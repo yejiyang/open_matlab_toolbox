@@ -31,4 +31,11 @@ install:
 
 `git submodule add git@github.com:jooh/matlab-plotting.git` 
 
-## 4. 
+## 4. setymat
+
+Read and write SEGY formatted files using Matlab/Octave http://segymat.sourceforge.net/ 
+
+`git submodule add git@github.com:cultpenguin/segymat.git`
+
+## 5. 
+

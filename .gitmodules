@@ -7,3 +7,6 @@
 [submodule "matlab-plotting"]
 	path = matlab-plotting
 	url = git@github.com:jooh/matlab-plotting.git
+[submodule "segymat"]
+	path = segymat
+	url = git@github.com:cultpenguin/segymat.git
