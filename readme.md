@@ -41,5 +41,13 @@ install:
 
 `git submodule add git@github.com:cultpenguin/segymat.git`
 
-## 5. 
+## 5. matpcl
+
+matpcl is pure MATLAB code that allows interfacing with the Point Cloud Library (PCL) tools by reading and writing PCD format files.
+
+[official matpcl]: https://se.mathworks.com/matlabcentral/fileexchange/40382-matlab-to-point-cloud-library
+
+[The author Peter Corke persional website, more robot and vision matlab toolbox]: http://www.petercorke.com/Home.html
+
+## 6.  
 
