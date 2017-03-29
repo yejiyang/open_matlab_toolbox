@@ -137,7 +137,7 @@ for ii=1:nargs
             end
 end  
 
-legend(ltext,parameters.lloc)
+%legend(ltext,parameters.lloc)
 grid on
 zoom on
 box on
