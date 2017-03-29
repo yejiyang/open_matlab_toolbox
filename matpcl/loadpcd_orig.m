@@ -24,8 +24,6 @@
 
 
 function points = loadpcd(fname)
-    % for test
-%    fname='test.pcd'
 
     verbose = true;
     
@@ -108,16 +106,13 @@ function points = loadpcd(fname)
             end
             c = textscan(fp, format, npoints);
             points = [];
-            %for j=1:length(c)  % edit by jiyang
-            for j=1:3 % read the 4th column caused problems
-                points = [points; c{j}'];  % have problems, if the number of 4th column is too big. 
+            for j=1:length(c)
+                points = [points; c{j}']; 
             end
             if size(points,2) ~= npoints
                 error('incorrect number of points in file: was %d, should be %d', ...
                     size(points,2), npoints);
             end
-            
-            points;  % for test
             
         case 'binary'
             format = '';
@@ -238,7 +233,7 @@ function points = loadpcd(fname)
                 R = double(bitand(255, bitshift(rgb, 16))) /255;
                 G = double(bitand(255, bitshift(rgb, 8))) /255;
                 B = double(bitand(255, rgb)) /255;
-                points = [points(1:3,:); R; G; B];
+                points = [points(1:3,:); R; G; B]
                 
             case 'x y z rgba'
                 R = double(bitand(255, bitshift(rgb, 24))) /255;
@@ -247,6 +242,12 @@ function points = loadpcd(fname)
                 A = double(bitand(255, rgb)) /255;
                 points = [points(1:3,:); R; G; B; A];
         end
+    end
+    
+    if organized
+        % data is an organized point cloud, rearrange it into planes
+        
+        points = permute( reshape( shiftdim(points, 1), width, height, []), [2 1 3]);
     end
                
     fclose(fp);

@@ -1,0 +1,4 @@
+Fixed some problems caused by changes in Matlab since Version 2007b 
+with the sole objective that all the examples run under Matlab 2015a. 
+Obviously, this does not mean that ALL problems have been repaired -
+just those that came up when I ran the examples.

@@ -1,0 +1,12 @@
+A set of about 170 functions (plus support functions called by them) for analysis and display of exploration-seismic data and well logs. These functions read and write seismic data in standard SEG-Y format, read and write well logs in LAS-format 2.0 (also read LAS-format 3.0), and perform many of the manipulations usually performed on these data types. They use standardized structures to represent seismic data and well data and thus allow simple concatenation of function calls. 
+
+The functions come with a manual in PDF format and scripts with examples. Several versions of Matlab were released during their development. Presently, I ran limited tests under them under R2015a, but I try not to use Matlab syntax introduced after R2007a. Also, SeisLab 2.01, which works with Matlab 6.1 (2001) and higher, can still be downloaded from the Matlab File Exchange (file 8827).
+
+Generally, I make an effort to avoid functions from toolboxes; however, I am aware of at least one call to a function in the Optimization Toolbox.
+
+In case you already have SeisLab installed you can find its distribution ID by typing "ddid" at the Matlab prompt. If you get the error message "Undefined function or variable 'ddid'." then you have the very first release of SeisLab. Otherwise, compare the distribution ID with that of this release (15.09.21). If it is lower then this release is newer.
+
+There are no major changes from SeisLab 3.01.
+
+The attached figure was created in Example 9 (Examples4LogOnSeismicPlot.m) of Script "WF_Seislab_examples".
+
