@@ -11,6 +11,8 @@ install:
 
 ` git submodule add git@github.com:altmany/export_fig.git`
 
+In windows 10, the eps output needs xpdf package?
+
 ## 2. matGeom
 
 Matlab geometry toolbox for 2D/3D geometric computing
