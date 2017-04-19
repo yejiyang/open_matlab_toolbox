@@ -64,11 +64,11 @@ end
 
 %  	Add date/time stamp and plot label
 try
-   text(0.8,0.02,S4M.time,'FontSize',7); 
+   %text(0.8,0.02,S4M.time,'FontSize',7); 
 catch
 end
 try
-   text(0.04,0.02,txt,'FontSize',7);
+   %text(0.04,0.02,txt,'FontSize',7);
 catch
 end
 

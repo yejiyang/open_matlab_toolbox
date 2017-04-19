@@ -106,7 +106,7 @@ for ii=1:nargs
      old_curve_units=curve_units;
      old_depth_units=depth_units;
      ltext=compare.legend;
-     xlabel(units2tex(curve_units),'FontSize',13,'FontWeight','bold','Fontname',S4M.font_name);
+     %xlabel(units2tex(curve_units),'FontSize',13,'FontWeight','bold','Fontname',S4M.font_name);
      ylabel(info2label(login.curve_info(1,:)), ...
           'FontSize',13,'FontWeight','bold','Fontname',S4M.font_name)
   else
