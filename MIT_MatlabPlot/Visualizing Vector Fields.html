@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0109)http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part8_VectorFields.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><script>window.readcubeExtension = {
+  version: '1.29',
+  id: 'mfacblegickmnfpaebakfnlbfhpoegin'
+};</script>
+      
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>Visualizing Vector Fields</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-09-01"><meta name="m-file" content="Part8_VectorFields"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-247-606</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">4f31213a-dc52-4a43-8755-3bf96a89b756</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint/marketing/edu/marcom/eduevents/mitiap/_layouts/DocIdRedir.aspx?ID=FV3TYEPWNNQC-247-606, FV3TYEPWNNQC-247-606</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<script async="" src="./Visualizing Vector Fields_files/analytics.js.download"></script><script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-1592615-30', 'auto', 'webwwwall');
+  ga('webwwwall.send', 'pageview');
+ 
+</script>
+</head><body><div id="StayFocusd-infobar" style="display:none;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div><div class="content"><h1>Visualizing Vector Fields</h1><!--introduction--><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a>, <a href="matlab:vis_tutorial_opencode(&#39;Part8&#39;)">Get code for this tutorial</a></p><p><i><b>Note: You can execute the code from this tutorial by highlighting them, right-clicking, and selecting "Evaluate Selection" (or hit F9).</b></i></p><p>This is based on a video <a href="http://blogs.mathworks.com/videos/2009/10/23/basics-volume-visualization-19-defining-scalar-and-vector-fields/">tutorial</a> on Doug's Video Tutorial blog.</p><p>In this section, you'll learn how to visualize <a href="matlab:web(&#39;http://en.wikipedia.org/wiki/Vector_field&#39;,&#39;-new&#39;)">vector fields</a>. Vector fields contain vector information for every point in space. For example, air flow data inside a wind tunnel is a vector field.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part8_VectorFields.html#1">Velocity Plot (Quiver Plot)</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part8_VectorFields.html#4">Velocity Plot (Cone Plot)</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part8_VectorFields.html#6">Streamlines</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part8_VectorFields.html#9">Streamslice</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part8_VectorFields.html#10">Stream Tube and Stream Ribbon</a></li></ul></div><h2>Velocity Plot (Quiver Plot)<a name="1"></a></h2><p>In order to visualize vector fields, you can use the <a href="matlab:doc(&#39;quiver3&#39;)"><tt>quiver3</tt></a> function. (For 2D, use <a href="matlab:doc(&#39;quiver&#39;)"><tt>quiver</tt></a>)</p><pre class="codeinput">[x, y, z] = meshgrid([-1 0 1]);
+u = x + cos(4*x) + 3;         <span class="comment">% x-component of vector field</span>
+v = sin(4*x) - sin(2*y);      <span class="comment">% y-component of vector field</span>
+w = -z;                       <span class="comment">% z-component of vector field</span>
+
+quiver3(x, y, z, u, v, w);
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+</pre><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/Part8_VectorFields_01.png" alt=""> <p><tt>quiver3</tt> (and <tt>quiver</tt>) places a vector at each grid point. For this reason, the visualization may not be very useful if you want a higher resolution:</p><pre class="codeinput">[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         <span class="comment">% x-component of vector field</span>
+v = sin(4*x) - sin(2*y);      <span class="comment">% y-component of vector field</span>
+w = -z;                       <span class="comment">% z-component of vector field</span>
+
+<span class="comment">% Using an invisible figure because this will choke most video cards</span>
+f = figure(<span class="string">'Visible'</span>, <span class="string">'off'</span>);
+quiver3(x, y, z, u, v, w);
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+print <span class="string">-dpng</span> <span class="string">-r200</span> <span class="string">largeQuiver</span>    <span class="comment">% save as PNG file</span>
+close(f);
+</pre><p><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/largeQuiver.png" alt=""> </p><p>As you can see, there are too many arrows to make this a meaningful plot.</p><h2>Velocity Plot (Cone Plot)<a name="4"></a></h2><p>In such situations, there's a different function called <a href="matlab:doc(&#39;coneplot&#39;)"><tt>coneplot</tt></a> that you can use. <tt>coneplot</tt> allows you to specify locations of the vectors (in the form of cones). This way, you can work with a high-resolution data without sacrificing graphics.</p><pre class="codeinput">clf;
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         <span class="comment">% x-component of vector field</span>
+v = sin(4*x) - sin(2*y);      <span class="comment">% y-component of vector field</span>
+w = -z;                       <span class="comment">% z-component of vector field</span>
+
+[cx, cy, cz] = meshgrid([-1 0 1]);
+h = coneplot(x, y, z, u, v, w, cx, cy, cz, 5);
+set(h, <span class="string">'FaceColor'</span>, <span class="string">'r'</span>, <span class="string">'EdgeColor'</span>, <span class="string">'none'</span>);
+camlight; lighting <span class="string">gouraud</span>;
+
+grid <span class="string">on</span>; box <span class="string">on</span>;
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+</pre><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/Part8_VectorFields_02.png" alt=""> <p>In fact, <tt>coneplot</tt> has an option to display arrows instead of cones:</p><pre class="codeinput">delete(h)
+coneplot(x, y, z, u, v, w, cx, cy, cz, <span class="string">'quiver'</span>);
+</pre><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/Part8_VectorFields_03.png" alt=""> <h2>Streamlines<a name="6"></a></h2><p><a href="matlab:doc(&#39;streamline&#39;)"><tt>streamline</tt></a> gives you information about a particular particle in space and describes how it moves through the vector field.</p><p><b>Single Streamline</b></p><p>The following shows a single streamline starting at point (-1, 1, -1.5)</p><pre class="codeinput">clf;
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         <span class="comment">% x-component of vector field</span>
+v = sin(4*x) - sin(2*y);      <span class="comment">% y-component of vector field</span>
+w = -z;                       <span class="comment">% z-component of vector field</span>
+
+streamline(x, y, z, u, v, w, -1, 1, -1.5)
+hold <span class="string">on</span>;
+plot3(-1, 1, -1.5, <span class="string">'bo'</span>, <span class="string">'MarkerFaceColor'</span>, <span class="string">'b'</span>)
+
+grid <span class="string">on</span>; box <span class="string">on</span>;
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+</pre><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/Part8_VectorFields_04.png" alt=""> <p><b>Multiple Streamlines</b></p><pre class="codeinput">clf;
+[sx,sy,sz] = meshgrid(-1.5, -1:1, -1:1);
+hhh = streamline(x, y, z, u, v, w, sx, sy, sz);
+hold <span class="string">on</span>;
+plot3(sx(:), sy(:), sz(:), <span class="string">'bo'</span>, <span class="string">'MarkerFaceColor'</span>, <span class="string">'b'</span>)
+
+grid <span class="string">on</span>; box <span class="string">on</span>;
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+</pre><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/Part8_VectorFields_05.png" alt=""> <p>You can add velocity cones on top of the streamlines to indicate the velocity along the lines.</p><pre class="codeinput"><span class="comment">% Get X/Y/Z data for the stream lines</span>
+xx = get(hhh, <span class="string">'XData'</span>);
+yy = get(hhh, <span class="string">'YData'</span>);
+zz = get(hhh, <span class="string">'ZData'</span>);
+
+<span class="comment">% Place 5 velocity cones per stream line</span>
+fcn = @(c) c(round(linspace(1, length(c), 5))); <span class="comment">% index into 5 equally spaced points</span>
+xx = cellfun(fcn, xx, <span class="string">'uniformoutput'</span>, false);
+yy = cellfun(fcn, yy, <span class="string">'uniformoutput'</span>, false);
+zz = cellfun(fcn, zz, <span class="string">'uniformoutput'</span>, false);
+
+hhh2 = coneplot(x, y, z, u, v, w, [xx{:}], [yy{:}], [zz{:}], 2);
+set(hhh2, <span class="string">'FaceColor'</span>, <span class="string">'r'</span>, <span class="string">'EdgeColor'</span>, <span class="string">'none'</span>);
+camlight; lighting <span class="string">gouraud</span>;
+</pre><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/Part8_VectorFields_06.png" alt=""> <h2>Streamslice<a name="9"></a></h2><p><a href="matlab:doc(&#39;streamslice&#39;)"><tt>streamslice</tt></a> works very similarly to <tt>slice</tt> and allows you to cut a plane through the space and project the vector field onto it.</p><pre class="codeinput">clf;
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         <span class="comment">% x-component of vector field</span>
+v = sin(4*x) - sin(2*y);      <span class="comment">% y-component of vector field</span>
+w = -z;                       <span class="comment">% z-component of vector field</span>
+
+streamslice(x, y, z, u, v, w, 1.5, 1.5, -1.5);
+box <span class="string">on</span>;
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+</pre><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/Part8_VectorFields_07.png" alt=""> <h2>Stream Tube and Stream Ribbon<a name="10"></a></h2><p>A couple of other vector field visualization tools to keep in mind are <a href="matlab:doc(&#39;streamtube&#39;)"><tt>streamtube</tt></a> and <a href="matlab:doc(&#39;streamribbon&#39;)"><tt>streamribbon</tt></a>. <tt>streamtube</tt> allows you to visualize the normalized <a href="matlab:web(&#39;http://en.wikipedia.org/wiki/Divergence&#39;,&#39;-new&#39;)">divergence</a> of the vector field, while <tt>streamribbon</tt> is proportional to the <a href="matlab:web(&#39;http://en.wikipedia.org/wiki/Curl_(mathematics)&#39;,&#39;-new&#39;)">curl</a> of the vector field. See the documentation for more information.</p><pre class="codeinput">clf;
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         <span class="comment">% x-component of vector field</span>
+v = sin(4*x) - sin(2*y);      <span class="comment">% y-component of vector field</span>
+w = -z;                       <span class="comment">% z-component of vector field</span>
+[sx, sy, sz] = meshgrid(-1.5, -1:1, -1:1);  <span class="comment">% stream starting point</span>
+
+<span class="comment">% streamtube</span>
+subplot(121);
+streamtube(x, y, z, u, v, w, sx, sy, sz);
+shading <span class="string">interp</span>
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+camlight; lighting <span class="string">gouraud</span>
+grid <span class="string">on</span>;
+title(<span class="string">'streamtube'</span>);
+
+<span class="comment">% streamribbon</span>
+subplot(122);
+streamribbon(x, y, z, u, v, w, sx, sy, sz);
+shading <span class="string">interp</span>
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+camlight <span class="string">headlight</span>; camlight <span class="string">right</span>; lighting <span class="string">gouraud</span>
+grid <span class="string">on</span>;
+title(<span class="string">'streamribbon'</span>);
+</pre><img vspace="5" hspace="5" src="./Visualizing Vector Fields_files/Part8_VectorFields_08.png" alt=""> <p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a></p><p class="footer">Copyright 2010 The MathWorks, Inc.<br>
+      Published with MATLAB® 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Visualizing Vector Fields
+% <TOC.html Table of Contents>, <matlab:vis_tutorial_opencode('Part8') Get
+% code for this tutorial>
+%
+% _*Note: You can execute the code from this tutorial by highlighting them,
+% right-clicking, and selecting "Evaluate Selection" (or hit F9).*_
+%
+% This is based on a video <http://blogs.mathworks.com/videos/2009/10/23/basics-volume-visualization-19-defining-scalar-and-vector-fields/
+% tutorial> on Doug's Video Tutorial blog.
+%
+% In this section, you'll learn how to visualize
+% <matlab:web('http://en.wikipedia.org/wiki/Vector_field','-new') vector
+% fields>. Vector fields contain vector information for every point in
+% space. For example, air flow data inside a wind tunnel is a vector field.
+
+% Copyright 2010 The MathWorks, Inc.
+
+%% Velocity Plot (Quiver Plot)
+% In order to visualize vector fields, you can use the
+% <matlab:doc('quiver3') |quiver3|> function. (For 2D, use
+% <matlab:doc('quiver') |quiver|>)
+
+[x, y, z] = meshgrid([-1 0 1]);
+u = x + cos(4*x) + 3;         % x-component of vector field
+v = sin(4*x) - sin(2*y);      % y-component of vector field
+w = -z;                       % z-component of vector field
+
+quiver3(x, y, z, u, v, w);
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+
+%%
+% |quiver3| (and |quiver|) places a vector at each grid point. For this
+% reason, the visualization may not be very useful if you want a higher
+% resolution:
+
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         % x-component of vector field
+v = sin(4*x) - sin(2*y);      % y-component of vector field
+w = -z;                       % z-component of vector field
+
+% Using an invisible figure because this will choke most video cards
+f = figure('Visible', 'off');
+quiver3(x, y, z, u, v, w);
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+print -dpng -r200 largeQuiver    % save as PNG file
+close(f);
+
+%%
+% <<largeQuiver.png>>
+%
+% As you can see, there are too many arrows to make this a meaningful plot.
+
+%% Velocity Plot (Cone Plot)
+% In such situations, there's a different function called
+% <matlab:doc('coneplot') |coneplot|> that you can use. |coneplot| allows
+% you to specify locations of the vectors (in the form of cones). This way,
+% you can work with a high-resolution data without sacrificing graphics.
+
+clf;
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         % x-component of vector field
+v = sin(4*x) - sin(2*y);      % y-component of vector field
+w = -z;                       % z-component of vector field
+
+[cx, cy, cz] = meshgrid([-1 0 1]);
+h = coneplot(x, y, z, u, v, w, cx, cy, cz, 5);
+set(h, 'FaceColor', 'r', 'EdgeColor', 'none');
+camlight; lighting gouraud;
+
+grid on; box on;
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+
+%%
+% In fact, |coneplot| has an option to display arrows instead of cones:
+
+delete(h)
+coneplot(x, y, z, u, v, w, cx, cy, cz, 'quiver');
+
+%% Streamlines
+% <matlab:doc('streamline') |streamline|> gives you information about a
+% particular particle in space and describes how it moves through the
+% vector field.
+%
+% *Single Streamline*
+%
+% The following shows a single streamline starting at point (-1, 1, -1.5)
+
+clf;
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         % x-component of vector field
+v = sin(4*x) - sin(2*y);      % y-component of vector field
+w = -z;                       % z-component of vector field
+
+streamline(x, y, z, u, v, w, -1, 1, -1.5)
+hold on;
+plot3(-1, 1, -1.5, 'bo', 'MarkerFaceColor', 'b')
+
+grid on; box on;
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+
+
+%%
+% *Multiple Streamlines*
+
+clf;
+[sx,sy,sz] = meshgrid(-1.5, -1:1, -1:1);
+hhh = streamline(x, y, z, u, v, w, sx, sy, sz);
+hold on;
+plot3(sx(:), sy(:), sz(:), 'bo', 'MarkerFaceColor', 'b')
+
+grid on; box on;
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+
+%%
+% You can add velocity cones on top of the streamlines to indicate the
+% velocity along the lines.
+
+% Get X/Y/Z data for the stream lines
+xx = get(hhh, 'XData'); 
+yy = get(hhh, 'YData');
+zz = get(hhh, 'ZData');
+
+% Place 5 velocity cones per stream line
+fcn = @(c) c(round(linspace(1, length(c), 5))); % index into 5 equally spaced points
+xx = cellfun(fcn, xx, 'uniformoutput', false);
+yy = cellfun(fcn, yy, 'uniformoutput', false);
+zz = cellfun(fcn, zz, 'uniformoutput', false);
+
+hhh2 = coneplot(x, y, z, u, v, w, [xx{:}], [yy{:}], [zz{:}], 2);
+set(hhh2, 'FaceColor', 'r', 'EdgeColor', 'none');
+camlight; lighting gouraud;
+
+%% Streamslice
+% <matlab:doc('streamslice') |streamslice|> works very similarly to
+% |slice| and allows you to cut a plane through the space and project the
+% vector field onto it.
+
+clf;
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         % x-component of vector field
+v = sin(4*x) - sin(2*y);      % y-component of vector field
+w = -z;                       % z-component of vector field
+
+streamslice(x, y, z, u, v, w, 1.5, 1.5, -1.5);
+box on;
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+view(-30, 60);
+
+%% Stream Tube and Stream Ribbon
+% A couple of other vector field visualization tools to keep in mind are
+% <matlab:doc('streamtube') |streamtube|> and <matlab:doc('streamribbon')
+% |streamribbon|>. |streamtube| allows you to visualize the normalized
+% <matlab:web('http://en.wikipedia.org/wiki/Divergence','-new') divergence>
+% of the vector field, while |streamribbon| is proportional to the
+% <matlab:web('http://en.wikipedia.org/wiki/Curl_(mathematics)','-new')
+% curl> of the vector field. See the documentation for more information.
+
+clf;
+[x, y, z] = meshgrid(-1.5:0.1:1.5);
+u = x + cos(4*x) + 3;         % x-component of vector field
+v = sin(4*x) - sin(2*y);      % y-component of vector field
+w = -z;                       % z-component of vector field
+[sx, sy, sz] = meshgrid(-1.5, -1:1, -1:1);  % stream starting point
+
+% streamtube
+subplot(121);
+streamtube(x, y, z, u, v, w, sx, sy, sz);
+shading interp
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+camlight; lighting gouraud
+grid on;
+title('streamtube');
+
+% streamribbon
+subplot(122);
+streamribbon(x, y, z, u, v, w, sx, sy, sz);
+shading interp
+axis([-1.5 1.5 -1.5 1.5 -1.5 1.5]);
+camlight headlight; camlight right; lighting gouraud
+grid on;
+title('streamribbon');
+
+%%
+% <TOC.html Table of Contents>
+
+##### SOURCE END #####
+--></body></html>

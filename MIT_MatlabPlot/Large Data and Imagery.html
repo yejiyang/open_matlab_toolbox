@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0113)http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><script>window.readcubeExtension = {
+  version: '1.29',
+  id: 'mfacblegickmnfpaebakfnlbfhpoegin'
+};</script>
+      
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>Large Data and Imagery</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-09-01"><meta name="m-file" content="Part6_LargeDataImagery"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-247-584</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">244635b1-bd70-46b3-bba9-3ae997677ac5</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint/marketing/edu/marcom/eduevents/mitiap/_layouts/DocIdRedir.aspx?ID=FV3TYEPWNNQC-247-584, FV3TYEPWNNQC-247-584</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<script async="" src="./Large Data and Imagery_files/analytics.js.download"></script><script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-1592615-30', 'auto', 'webwwwall');
+  ga('webwwwall.send', 'pageview');
+ 
+</script>
+</head><body><div id="StayFocusd-infobar" style="display: none; top: 6448px;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div><div class="content"><h1>Large Data and Imagery</h1><!--introduction--><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a>, <a href="matlab:vis_tutorial_opencode(&#39;Part6&#39;)">Get code for this tutorial</a></p><p><i><b>Note: You can execute the code from this tutorial by highlighting them, right-clicking, and selecting "Evaluate Selection" (or hit F9).</b></i></p><p>In this section, you will learn techniques for dealing with visualizing large amounts of data, whether it may be numerical data or imagery data.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html#1">Importing Large Data</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html#2">Down Sampling</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html#3">Large Images</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html#4">Large Image Preview</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html#5">Loading Subset</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html#7">Block Processing</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html#8">Accessing Down Sampled Image from JPEG2000</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part6_LargeDataImagery.html#9">Viewing Very Large Images in True Resolution</a></li></ul></div><h2>Importing Large Data<a name="1"></a></h2><p>When you want to analyze and visualize large amounts of data, a good thing to think about is whether you need all the data at once. Can you get away with processing and visualizing chunks of data at a time? If yes, you can use various importing functions to import parts of the data file at a time and process/visualize them. Here are some of those importing commands:</p><div><ul><li><a href="matlab:doc(&#39;textscan&#39;)"><tt>textscan</tt></a> - versatile function for reading structured ASCII files</li><li><a href="matlab:doc(&#39;fread&#39;)"><tt>fread</tt></a> - low-level binary reading</li><li><a href="matlab:doc(&#39;csvread&#39;)"><tt>csvread</tt></a>, <a href="matlab:doc(&#39;dlmread&#39;)"><tt>dlmread</tt></a> - delimited file reading</li><li><a href="matlab:doc(&#39;xlsread&#39;)"><tt>xlsread</tt></a> - Excel file reading</li><li><a href="matlab:web([docroot,&#39;/techdoc/ref/fileformats.html&#39;])">Other importing functions</a></li></ul></div><p>These functions can be used in conjunction with <tt>for</tt> loops to step through the large data set. In the documentation linked above (last bullet point), there are examples of using loops to read through text and binary files.</p><h2>Down Sampling<a name="2"></a></h2><p>When it comes to visualizing a large data set, consider down sampling the data before plotting. Even though your variable may have over 1 million points, the area on your screen for your plot will not have that many pixels to capture all the details. Here are some functions for down sampling (resampling) your data: <a href="matlab:doc(&#39;interp1&#39;)"><tt>interp1</tt></a>, <a href="matlab:doc(&#39;interp1q&#39;)"><tt>interp1q</tt></a>, <a href="matlab:doc(&#39;interpft&#39;)"><tt>interpft</tt></a>, <a href="matlab:doc(&#39;interp2&#39;)"><tt>interp2</tt></a>, <a href="matlab:doc(&#39;interp3&#39;)"><tt>interp3</tt></a>, <a href="matlab:doc(&#39;interpn&#39;)"><tt>interpn</tt></a>, <a href="matlab:doc(&#39;pchip&#39;)"><tt>pchip</tt></a>, <a href="matlab:doc(&#39;spline&#39;)"><tt>spline</tt></a>.</p><p>For image (2D), you can use <tt>interp2</tt> or a more appropriate function <a href="matlab:doc(&#39;imresize&#39;)"><tt>imresize</tt></a> from the Image Processing Toolbox.</p><p>Here's a quick example of using <tt>interp1</tt>:</p><pre class="codeinput"><span class="comment">% High-resolution data</span>
+x = -pi:pi/100:pi;
+y = tan(sin(x)) - sin(tan(x));
+
+<span class="comment">% Low-resolution</span>
+xi = -pi:pi/10:pi;
+
+<span class="comment">% Down Sampling</span>
+yi = interp1(x, y, xi);
+
+<span class="comment">% Plot</span>
+plot(x, y, xi, yi, <span class="string">'r.'</span>, <span class="string">'LineWidth'</span>, 2, <span class="string">'MarkerSize'</span>, 25);
+legend(<span class="string">'Original'</span>, <span class="string">'Down Sampled'</span>, <span class="string">'Location'</span>, <span class="string">'Northwest'</span>);
+</pre><img vspace="5" hspace="5" src="./Large Data and Imagery_files/Part6_LargeDataImagery_01.png" alt=""> <h2>Large Images<a name="3"></a></h2><p>Now, let's talk specifically about large images. Images can become quite large depending on the application, such as medical applications or satellite imagery. The <a href="matlab:web([docroot,&#39;/toolbox/images/images_product_page.html&#39;])">Image Processing Toolbox</a> contains a number of tools for dealing with large images.</p><p>We will take a look at 2 types of files that are commonly used for large image applications: <a href="matlab:web(&#39;http://en.wikipedia.org/wiki/Tagged_Image_File_Format&#39;,&#39;-new&#39;)">TIFF</a> and <a href="matlab:web(&#39;http://en.wikipedia.org/wiki/JPG2000&#39;,&#39;-new&#39;)">JPEG2000</a>.</p><p><b>Image</b></p><p>"large_image4.jp2" and "large_image4.tif" are based on an image taken from <a href="matlab:web(&#39;http://hirise.lpl.arizona.edu/&#39;,&#39;-new&#39;)">HiRISE (High Resolution Imaging Science Experiment)</a>. This particular image is from <a href="matlab:web(&#39;http://hirise.lpl.arizona.edu/PSP_010197_1540&#39;,&#39;-new&#39;)">here</a>. The original image from the website was 100000 by 20000 pixels. For demonstration purposes, we will be working with a small subimage (5000 by 5000). We can use <a href="matlab:doc(&#39;imfinfo&#39;)"><tt>imfinfo</tt></a> to get some basic image information.</p><pre class="codeinput">imfinfo(<span class="string">'image.tif'</span>)
+</pre><pre class="codeoutput">ans = 
+                     Filename: 'image.tif'
+                  FileModDate: '25-Aug-2010 14:37:39'
+                     FileSize: 24212064
+                       Format: 'tif'
+                FormatVersion: []
+                        Width: 5000
+                       Height: 5000
+                     BitDepth: 8
+                    ColorType: 'grayscale'
+              FormatSignature: [73 73 42 0]
+                    ByteOrder: 'little-endian'
+               NewSubFileType: 0
+                BitsPerSample: 8
+                  Compression: 'PackBits'
+    PhotometricInterpretation: 'BlackIsZero'
+                 StripOffsets: [5000x1 double]
+              SamplesPerPixel: 1
+                 RowsPerStrip: 1
+              StripByteCounts: [5000x1 double]
+                  XResolution: 72
+                  YResolution: 72
+               ResolutionUnit: 'Inch'
+                     Colormap: []
+          PlanarConfiguration: 'Chunky'
+                    TileWidth: []
+                   TileLength: []
+                  TileOffsets: []
+               TileByteCounts: []
+                  Orientation: 1
+                    FillOrder: 1
+             GrayResponseUnit: 0.0100
+               MaxSampleValue: 255
+               MinSampleValue: 0
+                 Thresholding: 1
+                       Offset: 24171874
+</pre><h2>Large Image Preview<a name="4"></a></h2><p>We see that it's an 8-bit gray scale image.</p><p>If you try to load (using <a href="matlab:doc(&#39;imread&#39;)"><tt>imread</tt></a>) or view (using <a href="matlab:doc(&#39;imshow&#39;)"><tt>imshow</tt></a>) the original image, you may run out of memory, especially if you've there are other large variables already in the workspace or if you're working with even larger image. In those cases, you may still want to be able to load, manipulate, and view your images.</p><p>For TIFF images, there are a number of things you can do. First, you can get a preview (lower resolution) of your large image:</p><pre class="codeinput">imshow(<span class="string">'image.tif'</span>, <span class="string">'Reduce'</span>, true);
+</pre><pre class="codeoutput">Warning: Displaying subsampled image (reduced to 17%). 
+</pre><img vspace="5" hspace="5" src="./Large Data and Imagery_files/Part6_LargeDataImagery_02.png" alt=""> <h2>Loading Subset<a name="5"></a></h2><p>If you only need to view (and analyze) sections of your image at a time, as opposed to analyzing the whole image at once, you can use the <tt>PixelRegion</tt> parameter to load a subset of an image.</p><pre class="codeinput"><span class="comment">% Read the first 1000 by 1000</span>
+small_image = imread(<span class="string">'image.tif'</span>, <span class="string">'PixelRegion'</span>, {[1 1000], [1 1000]});
+ImageSize = size(small_image)
+imshow(small_image);
+</pre><pre class="codeoutput">ImageSize =
+        1000        1000
+Warning: Image is too big to fit on screen; displaying at 67% 
+</pre><img vspace="5" hspace="5" src="./Large Data and Imagery_files/Part6_LargeDataImagery_03.png" alt=""> <p>"PixelRegion" parameter can also be used with JPEG2000 files.</p><h2>Block Processing<a name="7"></a></h2><p>In addition to loading sections at a time, if you want to do some analysis on it, you can use the command <a href="matlab:web(&#39;http://www.mathworks.com/access/helpdesk/help/toolbox/images/blockproc.html&#39;,&#39;-new&#39;)"><tt>blockproc</tt></a>. <i><b>Note:</b> <tt>blockproc</tt> was introduced in R2009b.</i></p><p><tt>blockproc</tt> allows you to process the whole image, one block at a time. In addition, you can specify a border for your blocks, in case each block may require information from neighboring blocks.</p><p>This function is also useful when your image is simply too large to hold in memory at once. You can specify a "Destination" file, and it will create a new file as it processes the image (file-to-file image processing).</p><pre class="codeinput"><span class="keyword">if</span> verLessThan(<span class="string">'images'</span>, <span class="string">'6.4'</span>)
+   disp(<span class="string">'You need Image Processing Toolbox R2009b or newer to use the function BLOCKPROC'</span>);
+<span class="keyword">else</span>
+   <span class="comment">% Run only if the file does not exist</span>
+   <span class="keyword">if</span> ~exist(<span class="string">'image_light.tif'</span>, <span class="string">'file'</span>)
+
+      <span class="comment">% This function brightens the pixels by adding 75 to each 8-bit value</span>
+      brightenFcn = @(block) block.data+75;
+
+      <span class="comment">% Process 1000 by 1000 blocks at a time, and save the output as</span>
+      <span class="comment">% "image_light.tif"</span>
+      blockproc(<span class="string">'image.tif'</span>, [1000 1000], brightenFcn, <span class="keyword">...</span>
+         <span class="string">'Destination'</span>, <span class="string">'image_light.tif'</span>);
+
+   <span class="keyword">end</span>
+   imshow(<span class="string">'image_light.tif'</span>, <span class="string">'Reduce'</span>, true);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Warning: Displaying subsampled image (reduced to 17%). 
+</pre><img vspace="5" hspace="5" src="./Large Data and Imagery_files/Part6_LargeDataImagery_04.png" alt=""> <h2>Accessing Down Sampled Image from JPEG2000<a name="8"></a></h2><p>JPEG2000 allows a direct way of accessing a down sampled version of the image from the <a href="matlab:doc(&#39;imread&#39;)"><tt>imread</tt></a> command.</p><pre class="codeinput"><span class="comment">% ReductionLevel of 2 means 2^2 = 4 times reduction.</span>
+downsampled_image = imread(<span class="string">'image.jp2'</span>, <span class="string">'ReductionLevel'</span>, 2);
+ImageSize = size(downsampled_image)
+imshow(downsampled_image);
+</pre><pre class="codeoutput">ImageSize =
+        1250        1250
+Warning: Image is too big to fit on screen; displaying at 67% 
+</pre><img vspace="5" hspace="5" src="./Large Data and Imagery_files/Part6_LargeDataImagery_05.png" alt=""> <h2>Viewing Very Large Images in True Resolution<a name="9"></a></h2><p>Even with all of these techniques for down sampling and subsetting, you may still want to be able to view and explore the original image. For that, you can use a <a href="matlab:web([docroot,&#39;/toolbox/images/br0xjyx-1.html&#39;])">reduced resolution data set (R-Set)</a> image. The data set contains various resolutions of the image, and when loaded using <a href="matlab:doc(&#39;imtool&#39;)"><tt>imtool</tt></a>, it can be quickly explored.</p><p>The first step is to create an R-Set file using <a href="matlab:doc(&#39;rsetwrite&#39;)"><tt>rsetwrite</tt></a>. This could take some time, depending on the size of the original image and the capacity of your computer. Once it is created, you can open it using <tt>imtool</tt>.</p><pre class="codeinput"><span class="comment">% Run only if the R-Set file does not exist. (This process may take some</span>
+<span class="comment">% time)</span>
+<span class="keyword">if</span> ~exist(<span class="string">'image.rset'</span>, <span class="string">'file'</span>)
+   rsetwrite(<span class="string">'image.tif'</span>);
+<span class="keyword">end</span>
+imtool(<span class="string">'image.rset'</span>);
+</pre><img vspace="5" hspace="5" src="./Large Data and Imagery_files/Part6_LargeDataImagery_06.png" alt=""> <p>Once opened, be sure to explore by zooming and panning. Zoom in very far to see the details.</p><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a></p><p class="footer">Copyright 2010 The MathWorks, Inc.<br>
+      Published with MATLAB® 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Large Data and Imagery
+% <TOC.html Table of Contents>, <matlab:vis_tutorial_opencode('Part6') Get
+% code for this tutorial>
+%
+% _*Note: You can execute the code from this tutorial by highlighting them,
+% right-clicking, and selecting "Evaluate Selection" (or hit F9).*_
+%
+% In this section, you will learn techniques for dealing with visualizing
+% large amounts of data, whether it may be numerical data or imagery data.
+
+% Copyright 2010 The MathWorks, Inc.
+
+%% Importing Large Data
+% When you want to analyze and visualize large amounts of data, a good
+% thing to think about is whether you need all the data at once. Can you
+% get away with processing and visualizing chunks of data at a time? If
+% yes, you can use various importing functions to import parts of the data
+% file at a time and process/visualize them. Here are some of those
+% importing commands:
+%
+% * <matlab:doc('textscan') |textscan|> - versatile function for reading
+% structured ASCII files
+% * <matlab:doc('fread') |fread|> - low-level binary reading
+% * <matlab:doc('csvread') |csvread|>, <matlab:doc('dlmread') |dlmread|> -
+% delimited file reading
+% * <matlab:doc('xlsread') |xlsread|> - Excel file reading
+% * <matlab:web([docroot,'/techdoc/ref/fileformats.html']) Other
+% importing functions>
+%
+% These functions can be used in conjunction with |for| loops to step
+% through the large data set. In the documentation linked above (last
+% bullet point), there are examples of using loops to read through text and
+% binary files.
+
+%% Down Sampling
+% When it comes to visualizing a large data set, consider down sampling the
+% data before plotting. Even though your variable may have over 1 million
+% points, the area on your screen for your plot will not have that many
+% pixels to capture all the details. Here are some functions for down
+% sampling (resampling) your data: <matlab:doc('interp1') |interp1|>,
+% <matlab:doc('interp1q') |interp1q|>, <matlab:doc('interpft') |interpft|>,
+% <matlab:doc('interp2') |interp2|>, <matlab:doc('interp3') |interp3|>,
+% <matlab:doc('interpn') |interpn|>, <matlab:doc('pchip') |pchip|>,
+% <matlab:doc('spline') |spline|>.
+%
+% For image (2D), you can use |interp2| or a more appropriate function
+% <matlab:doc('imresize') |imresize|> from the Image Processing Toolbox.
+%
+% Here's a quick example of using |interp1|:
+
+% High-resolution data
+x = -pi:pi/100:pi;
+y = tan(sin(x)) - sin(tan(x));
+
+% Low-resolution
+xi = -pi:pi/10:pi;
+
+% Down Sampling
+yi = interp1(x, y, xi);
+
+% Plot
+plot(x, y, xi, yi, 'r.', 'LineWidth', 2, 'MarkerSize', 25);
+legend('Original', 'Down Sampled', 'Location', 'Northwest');
+
+%% Large Images
+% Now, let's talk specifically about large images. Images can become quite
+% large depending on the application, such as medical applications or
+% satellite imagery. The
+% <matlab:web([docroot,'/toolbox/images/images_product_page.html']) Image
+% Processing Toolbox> contains a number of tools for dealing with large
+% images.
+%
+% We will take a look at 2 types of files that are commonly used for large
+% image applications:
+% <matlab:web('http://en.wikipedia.org/wiki/Tagged_Image_File_Format','-new')
+% TIFF> and <matlab:web('http://en.wikipedia.org/wiki/JPG2000','-new')
+% JPEG2000>.
+%
+% *Image*
+%
+% "large_image4.jp2" and "large_image4.tif" are based on an image taken
+% from <matlab:web('http://hirise.lpl.arizona.edu/','-new') HiRISE (High
+% Resolution Imaging Science Experiment)>. This particular image is from
+% <matlab:web('http://hirise.lpl.arizona.edu/PSP_010197_1540','-new')
+% here>. The original image from the website was 100000 by 20000 pixels.
+% For demonstration purposes, we will be working with a small subimage
+% (5000 by 5000). We can use <matlab:doc('imfinfo') |imfinfo|> to get
+% some basic image information.
+
+imfinfo('image.tif')
+
+%% Large Image Preview
+% We see that it's an 8-bit gray scale image.
+%
+% If you try to load (using <matlab:doc('imread') |imread|>) or view (using
+% <matlab:doc('imshow') |imshow|>) the original image, you may run out of
+% memory, especially if you've there are other large variables already in
+% the workspace or if you're working with even larger image. In those
+% cases, you may still want to be able to load, manipulate, and view your
+% images.
+%
+% For TIFF images, there are a number of things you can do. First, you can
+% get a preview (lower resolution) of your large image:
+
+imshow('image.tif', 'Reduce', true);
+
+%% Loading Subset
+% If you only need to view (and analyze) sections of your image at a time,
+% as opposed to analyzing the whole image at once, you can use the
+% |PixelRegion| parameter to load a subset of an image.
+
+% Read the first 1000 by 1000
+small_image = imread('image.tif', 'PixelRegion', {[1 1000], [1 1000]});
+ImageSize = size(small_image)
+imshow(small_image);
+
+%%
+% "PixelRegion" parameter can also be used with JPEG2000 files.
+
+%% Block Processing
+% In addition to loading sections at a time, if you want to do some
+% analysis on it, you can use the command
+% <matlab:web('http://www.mathworks.com/access/helpdesk/help/toolbox/images/blockproc.html','-new')
+% |blockproc|>. _*Note:* |blockproc| was introduced in R2009b._
+%
+% |blockproc| allows you to process the whole image, one block at a time.
+% In addition, you can specify a border for your blocks, in case each block
+% may require information from neighboring blocks.
+%
+% This function is also useful when your image is simply too large to hold
+% in memory at once. You can specify a "Destination" file, and it will
+% create a new file as it processes the image (file-to-file image
+% processing).
+
+if verLessThan('images', '6.4')
+   disp('You need Image Processing Toolbox R2009b or newer to use the function BLOCKPROC');
+else
+   % Run only if the file does not exist
+   if ~exist('image_light.tif', 'file')
+      
+      % This function brightens the pixels by adding 75 to each 8-bit value
+      brightenFcn = @(block) block.data+75;
+      
+      % Process 1000 by 1000 blocks at a time, and save the output as
+      % "image_light.tif"
+      blockproc('image.tif', [1000 1000], brightenFcn, ...
+         'Destination', 'image_light.tif');
+      
+   end
+   imshow('image_light.tif', 'Reduce', true);
+end
+
+%% Accessing Down Sampled Image from JPEG2000
+% JPEG2000 allows a direct way of accessing a down sampled version of the
+% image from the <matlab:doc('imread') |imread|> command.
+
+% ReductionLevel of 2 means 2^2 = 4 times reduction.
+downsampled_image = imread('image.jp2', 'ReductionLevel', 2);
+ImageSize = size(downsampled_image)
+imshow(downsampled_image);
+
+%% Viewing Very Large Images in True Resolution
+% Even with all of these techniques for down sampling and subsetting, you
+% may still want to be able to view and explore the original image. For
+% that, you can use a
+% <matlab:web([docroot,'/toolbox/images/br0xjyx-1.html']) reduced
+% resolution data set (R-Set)> image. The data set contains various
+% resolutions of the image, and when loaded using <matlab:doc('imtool')
+% |imtool|>, it can be quickly explored.
+%
+% The first step is to create an R-Set file using <matlab:doc('rsetwrite')
+% |rsetwrite|>. This could take some time, depending on the size of the
+% original image and the capacity of your computer. Once it is created, you
+% can open it using |imtool|.
+
+% Run only if the R-Set file does not exist. (This process may take some
+% time)
+if ~exist('image.rset', 'file')
+   rsetwrite('image.tif');
+end
+imtool('image.rset');
+
+%%
+% Once opened, be sure to explore by zooming and panning. Zoom in very far
+% to see the details.
+%
+% <TOC.html Table of Contents>
+
+##### SOURCE END #####
+--></body></html>

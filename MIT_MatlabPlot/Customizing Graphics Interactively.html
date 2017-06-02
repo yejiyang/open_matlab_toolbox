@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0121)http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part4_InteractiveCustomization.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><script>window.readcubeExtension = {
+  version: '1.29',
+  id: 'mfacblegickmnfpaebakfnlbfhpoegin'
+};</script>
+      
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>Customizing Graphics Interactively</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-09-01"><meta name="m-file" content="Part4_InteractiveCustomization"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-247-572</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">465a167d-223d-4c54-9fcf-0e187d7cd96b</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint/marketing/edu/marcom/eduevents/mitiap/_layouts/DocIdRedir.aspx?ID=FV3TYEPWNNQC-247-572, FV3TYEPWNNQC-247-572</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<script async="" src="./Customizing Graphics Interactively_files/analytics.js.download"></script><script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-1592615-30', 'auto', 'webwwwall');
+  ga('webwwwall.send', 'pageview');
+ 
+</script>
+</head><body><div id="StayFocusd-infobar" style="display: none; top: 2108px;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div><div class="content"><h1>Customizing Graphics Interactively</h1><!--introduction--><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a>, <a href="matlab:vis_tutorial_opencode(&#39;Part4&#39;)">Get code for this tutorial</a></p><p><i><b>Note: You can execute the code from this tutorial by highlighting them, right-clicking, and selecting "Evaluate Selection" (or hit F9).</b></i></p><p>In this tutorial, you will see how you can customize your graphs interactively.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part4_InteractiveCustomization.html#1">Load Data</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part4_InteractiveCustomization.html#2">Create Basic Plot</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part4_InteractiveCustomization.html#3">Customize using Plot Tools</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part4_InteractiveCustomization.html#4">Calling Generated MATLAB File</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>First, we'll load the data necessary for this exercise.</p><pre class="codeinput">load <span class="string">data</span>
+</pre><h2>Create Basic Plot<a name="2"></a></h2><p>Next, plot the data to create the crude visualization.</p><pre class="codeinput">figure();
+hold <span class="string">on</span>;   <span class="comment">% hold the figure to plot multiple objects.</span>
+
+hFit   = plot(xfit  , yfit   );
+hE     = errorbar(xdata_m, ydata_m, ydata_s);
+hData  = plot(xVdata, yVdata );
+hModel = plot(xmodel, ymodel );
+hCI(1) = plot(xmodel, ymodelL);
+hCI(2) = plot(xmodel, ymodelU);
+</pre><img vspace="5" hspace="5" src="./Customizing Graphics Interactively_files/Part4_InteractiveCustomization_01.png" alt=""> <h2>Customize using Plot Tools<a name="3"></a></h2><p>Open Plot Tools by clicking on the right-most button of the Figure toolbar.</p><p><img vspace="5" hspace="5" src="./Customizing Graphics Interactively_files/plottoolsicon.png" alt=""> </p><p><img vspace="5" hspace="5" src="./Customizing Graphics Interactively_files/customization.png" alt=""> </p><p>Make the following customization interactively in Plot Tools.</p><div><ol><li>Add X and Y grids</li><li>Remove line from error bars. Add "o" marker. Change MarkerEdgeColor, MarkerFaceColor, MarkerSize, Color and LineWidth</li><li>Change Color and make line thicker</li><li>Remove line and add marker (increase MarkerSize)</li><li>Change line color, line type, and line thickness</li><li>Change line color, line type, and line thickness</li><li>Add X and Y labels</li></ol></div><p>After you're done with customizing, close Plot Tools (click on the button next to the one that opened Plot Tools). Go to File menu and select "Generate M-File".</p><p><img vspace="5" hspace="5" src="./Customizing Graphics Interactively_files/generatecodemenu.png" alt=""> </p><h2>Calling Generated MATLAB File<a name="4"></a></h2><p>Once the MATLAB file is generated, you can call it with the appropriate input arguments.</p><pre class="codeinput">createfigure(xfit, yfit, xdata_m, ydata_m, ydata_s, xVdata, yVdata, <span class="keyword">...</span>
+   xmodel, ymodel, ymodelL, ymodelU)
+</pre><img vspace="5" hspace="5" src="./Customizing Graphics Interactively_files/Part4_InteractiveCustomization_02.png" alt=""> <p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a></p><p class="footer">Copyright 2010 The MathWorks, Inc.<br>
+      Published with MATLAB® 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Customizing Graphics Interactively
+% <TOC.html Table of Contents>, <matlab:vis_tutorial_opencode('Part4') Get
+% code for this tutorial>
+%
+% _*Note: You can execute the code from this tutorial by highlighting them,
+% right-clicking, and selecting "Evaluate Selection" (or hit F9).*_
+%
+% In this tutorial, you will see how you can customize your graphs
+% interactively.
+
+% Copyright 2010 The MathWorks, Inc.
+
+%% Load Data
+% First, we'll load the data necessary for this exercise.
+
+load data
+
+%% Create Basic Plot
+% Next, plot the data to create the crude visualization.
+
+figure();
+hold on;   % hold the figure to plot multiple objects.
+
+hFit   = plot(xfit  , yfit   );
+hE     = errorbar(xdata_m, ydata_m, ydata_s);
+hData  = plot(xVdata, yVdata );
+hModel = plot(xmodel, ymodel );
+hCI(1) = plot(xmodel, ymodelL);
+hCI(2) = plot(xmodel, ymodelU);
+
+%% Customize using Plot Tools
+% Open Plot Tools by clicking on the right-most button of the Figure
+% toolbar.
+%
+% <<plottoolsicon.png>>
+%
+% <<customization.png>>
+%
+% Make the following customization interactively in Plot Tools.
+%
+% # Add X and Y grids
+% # Remove line from error bars. Add "o" marker. Change MarkerEdgeColor,
+% MarkerFaceColor, MarkerSize, Color and LineWidth
+% # Change Color and make line thicker
+% # Remove line and add marker (increase MarkerSize)
+% # Change line color, line type, and line thickness
+% # Change line color, line type, and line thickness
+% # Add X and Y labels
+%
+% After you're done with customizing, close Plot Tools (click on the button
+% next to the one that opened Plot Tools). Go to File menu and select
+% "Generate M-File".
+%
+% <<generatecodemenu.png>>
+
+%% Calling Generated MATLAB File
+% Once the MATLAB file is generated, you can call it with the appropriate
+% input arguments.
+
+createfigure(xfit, yfit, xdata_m, ydata_m, ydata_s, xVdata, yVdata, ...
+   xmodel, ymodel, ymodelL, ymodelU)
+
+%%
+% <TOC.html Table of Contents>
+
+##### SOURCE END #####
+--></body></html>

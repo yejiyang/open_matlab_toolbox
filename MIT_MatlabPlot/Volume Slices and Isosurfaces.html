@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0114)http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part7_SlicesIsosurfaces.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><script>window.readcubeExtension = {
+  version: '1.29',
+  id: 'mfacblegickmnfpaebakfnlbfhpoegin'
+};</script>
+      
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>Volume Slices and Isosurfaces</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-09-01"><meta name="m-file" content="Part7_SlicesIsosurfaces"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-247-592</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">fc569357-f939-420f-8030-4ac1b1bd5677</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint/marketing/edu/marcom/eduevents/mitiap/_layouts/DocIdRedir.aspx?ID=FV3TYEPWNNQC-247-592, FV3TYEPWNNQC-247-592</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<script async="" src="./Volume Slices and Isosurfaces_files/analytics.js.download"></script><script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-1592615-30', 'auto', 'webwwwall');
+  ga('webwwwall.send', 'pageview');
+ 
+</script>
+</head><body><div id="StayFocusd-infobar" style="display:none;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div><div class="content"><h1>Volume Slices and Isosurfaces</h1><!--introduction--><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a>, <a href="matlab:vis_tutorial_opencode(&#39;Part7&#39;)">Get code for this tutorial</a></p><p><i><b>Note: You can execute the code from this tutorial by highlighting them, right-clicking, and selecting "Evaluate Selection" (or hit F9).</b></i></p><p>This is based on a video <a href="http://blogs.mathworks.com/videos/2009/10/23/basics-volume-visualization-19-defining-scalar-and-vector-fields/">tutorial</a> on Doug's Video Tutorial blog.</p><p>In this section, you'll learn how you can visualize volumetric data by slicing into the data and creating isosurfaces. Specifically, you will learn at how to visualize <a href="matlab:web(&#39;http://en.wikipedia.org/wiki/Scalar_field&#39;,&#39;-new&#39;)">scalar fields</a>. Scalar fields contain scalar information for every point in space. For example, temperature inside a room is a scalar field. In the <a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part8_VectorFields.html">next section</a>, you will examine techniques for visualizing <a href="matlab:web(&#39;http://en.wikipedia.org/wiki/Vector_field&#39;,&#39;-new&#39;)">vector fields</a>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part7_SlicesIsosurfaces.html#1">Understanding Volumetric Data</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part7_SlicesIsosurfaces.html#4">Slices through Volumetric Data</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part7_SlicesIsosurfaces.html#10">Contour Slices</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part7_SlicesIsosurfaces.html#13">Isosurfaces</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part7_SlicesIsosurfaces.html#15">3D Animation</a></li></ul></div><h2>Understanding Volumetric Data<a name="1"></a></h2><p>Let's start with a simple example to understand what volumetric data is and how it's represented in MATLAB.</p><p>We'll define volumetric data by assigning a value at every 3D grid point. Let's look at a simple, coarse-grained example</p><pre class="codeinput">[x, y, z] = meshgrid([-1 0 1]);
+v = x .* exp(-x.^2 - y.^2 - z.^2);
+</pre><p>We'll use <a href="matlab:doc(&#39;scatter3&#39;)"><tt>scatter3</tt></a> to visualize the values at each grid point.</p><pre class="codeinput">scatter3(x(:), y(:), z(:), 72, v(:), <span class="string">'filled'</span>);
+view(-15, 35);
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_01.png" alt=""> <p>Let's look at a larger data set by increasing the resolution.</p><pre class="codeinput">[x,y,z] = meshgrid(-3:0.5:3);
+v = x.*exp(-x.^2 - y.^2 - z.^2);
+scatter3(x(:), y(:), z(:), 30, v(:), <span class="string">'filled'</span>);
+view(-15, 35);
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_02.png" alt=""> <h2>Slices through Volumetric Data<a name="4"></a></h2><p>As you can see, the higher the resolution gets, the harder it becomes to visualize. One way of understanding volumetric data is to take a <a href="matlab:doc(&#39;slice&#39;)"><tt>slice</tt></a> out of it.</p><p><b>Slice along Z = 0</b></p><pre class="codeinput"><span class="comment">% Even higher resolution</span>
+[x, y, z] = meshgrid(-3:0.25:3);
+v = x.*exp(-x.^2 - y.^2 - z.^2);
+
+slice(x, y, z, v, [], [], 0);
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_03.png" alt=""> <p><b>Slices along Y = 0 and Z = 0</b></p><pre class="codeinput">slice(x, y, z, v, [], 0, 0);
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_04.png" alt=""> <p><b>Slices along X = 1.5, X = -1.5, Y = 0, Z = 0</b></p><pre class="codeinput">slice(x, y, z, v, [1.5 -1.5], 0, 0);
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_05.png" alt=""> <p><b>Slice along Z = -X + Y</b></p><pre class="codeinput">[xs, ys] = meshgrid(-3:0.25:3);
+zs = -xs + ys;
+slice(x, y, z, v, xs, ys, zs);
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_06.png" alt=""> <p><b>Slice along non-planar surface, Z = sin(X) - cos(Y)</b></p><pre class="codeinput">zs = sin(xs) - cos(ys);
+slice(x, y, z, v, xs, ys, zs);
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_07.png" alt=""> <h2>Contour Slices<a name="10"></a></h2><p>You can create contour slices using <a href="matlab:doc(&#39;contourslice&#39;)"><tt>contourslice</tt></a>.</p><p><b>Contour slice along Z = 0</b></p><pre class="codeinput">clf
+contourslice(x, y, z, v, [], [], 0, 20);     <span class="comment">% 20 contour lines</span>
+view(3); grid <span class="string">on</span>;
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_08.png" alt=""> <p><b>Contour slice along Y = 0, Z = -1, Z = 1</b></p><pre class="codeinput">clf;
+contourslice(x, y, z, v, [], 0, [-1 1], 10); <span class="comment">% 10 contour lines</span>
+view(3); grid <span class="string">on</span>;
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_09.png" alt=""> <p><b>Contour slice along Z = sin(X) - cos(Y/2)</b></p><pre class="codeinput">clf;
+zs = sin(xs) - cos(ys/2);
+contourslice(x, y, z, v, xs, ys, zs, 50);    <span class="comment">% 50 contour lines</span>
+view(3); grid <span class="string">on</span>;
+colorbar;
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_10.png" alt=""> <h2>Isosurfaces<a name="13"></a></h2><p>In contrast to making slices (whether they're flat planes or nonlinear), a different way of exploring volumetric data is to view the "boundaries". If you connect all the points with the same value, you get an <a href="matlab:doc(&#39;isosurface&#39;)"><tt>isosurface</tt></a></p><p><b>Isosurface where V = 1e-5</b></p><pre class="codeinput">clf;
+isosurface(x, y, z, v, 1e-5);
+axis([-3 3 -3 3 -3 3]);
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_11.png" alt=""> <p><b>Isosurface where V = 1e-5 and V = -1e-4</b></p><pre class="codeinput">clf;
+isosurface(x, y, z, v, 1e-5);
+isosurface(x, y, z, v, -1e-4);
+axis([-3 3 -3 3 -3 3]);
+</pre><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/Part7_SlicesIsosurfaces_12.png" alt=""> <h2>3D Animation<a name="15"></a></h2><p>Let's put these visualization commands in a FOR loop to animate.</p><p><b>Isosurface</b></p><pre class="codeinput">clf;
+vals = logspace(-1, -5, 25);  <span class="comment">% 20 points from 1e-1 down to 1e-5</span>
+h = patch(isosurface(x, y, z, v, vals(1)), <span class="keyword">...</span>
+   <span class="string">'facecolor'</span>, <span class="string">'g'</span>, <span class="string">'edgecolor'</span>, <span class="string">'none'</span>);
+axis([-3 3 -3 3 -3 3]);
+camlight; lighting <span class="string">phong</span>
+<span class="keyword">for</span> id = vals
+   [faces, vertices] = isosurface(x, y, z, v, id);
+   set(h, <span class="string">'Faces'</span>, faces, <span class="string">'Vertices'</span>, vertices);
+   pause(0.1);
+<span class="keyword">end</span>
+
+close;
+</pre><p><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/isosurface.gif" alt=""> </p><p><b>Slice</b></p><pre class="codeinput">clf;
+vals = -3:0.25:3;
+h= slice(x, y, z, v, [], [], vals(1));
+axis([-3 3 -3 3 -3 3]);
+colorbar;
+<span class="keyword">for</span> id = vals
+   delete(h);
+   h= slice(x, y, z, v, [], [], id);
+   axis([-3 3 -3 3 -3 3]);
+   colorbar;
+   pause(0.1);
+<span class="keyword">end</span>
+
+close;
+</pre><p><img vspace="5" hspace="5" src="./Volume Slices and Isosurfaces_files/slice.gif" alt=""> </p><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a></p><p class="footer">Copyright 2010 The MathWorks, Inc.<br>
+      Published with MATLAB® 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Volume Slices and Isosurfaces
+% <TOC.html Table of Contents>, <matlab:vis_tutorial_opencode('Part7') Get
+% code for this tutorial>
+%
+% _*Note: You can execute the code from this tutorial by highlighting them,
+% right-clicking, and selecting "Evaluate Selection" (or hit F9).*_
+%
+% This is based on a video <http://blogs.mathworks.com/videos/2009/10/23/basics-volume-visualization-19-defining-scalar-and-vector-fields/
+% tutorial> on Doug's Video Tutorial blog.
+%
+% In this section, you'll learn how you can visualize volumetric data by
+% slicing into the data and creating isosurfaces. Specifically, you will
+% learn at how to visualize
+% <matlab:web('http://en.wikipedia.org/wiki/Scalar_field','-new') scalar
+% fields>. Scalar fields contain scalar information for every point in
+% space. For example, temperature inside a room is a scalar field. In the
+% <Part8_VectorFields.html next section>, you will examine techniques for
+% visualizing
+% <matlab:web('http://en.wikipedia.org/wiki/Vector_field','-new') vector
+% fields>.
+
+% Copyright 2010 The MathWorks, Inc.
+
+%% Understanding Volumetric Data
+% Let's start with a simple example to understand what volumetric data is
+% and how it's represented in MATLAB.
+%
+% We'll define volumetric data by assigning a value at every 3D grid point.
+% Let's look at a simple, coarse-grained example
+
+[x, y, z] = meshgrid([-1 0 1]);
+v = x .* exp(-x.^2 - y.^2 - z.^2);
+
+%%
+% We'll use <matlab:doc('scatter3') |scatter3|> to visualize the values at
+% each grid point.
+
+scatter3(x(:), y(:), z(:), 72, v(:), 'filled');
+view(-15, 35);
+colorbar;
+
+%%
+% Let's look at a larger data set by increasing the resolution.
+
+[x,y,z] = meshgrid(-3:0.5:3);
+v = x.*exp(-x.^2 - y.^2 - z.^2);
+scatter3(x(:), y(:), z(:), 30, v(:), 'filled');
+view(-15, 35);
+colorbar;
+
+%% Slices through Volumetric Data
+% As you can see, the higher the resolution gets, the harder it becomes to
+% visualize. One way of understanding volumetric data is to take a
+% <matlab:doc('slice') |slice|> out of it. 
+
+%%
+% *Slice along Z = 0*
+
+% Even higher resolution 
+[x, y, z] = meshgrid(-3:0.25:3);
+v = x.*exp(-x.^2 - y.^2 - z.^2);
+
+slice(x, y, z, v, [], [], 0);
+colorbar;
+
+%%
+% *Slices along Y = 0 and Z = 0*
+
+slice(x, y, z, v, [], 0, 0);
+colorbar;
+
+%%
+% *Slices along X = 1.5, X = -1.5, Y = 0, Z = 0*
+
+slice(x, y, z, v, [1.5 -1.5], 0, 0);
+colorbar;
+
+%%
+% *Slice along Z = -X + Y*
+
+[xs, ys] = meshgrid(-3:0.25:3);
+zs = -xs + ys;
+slice(x, y, z, v, xs, ys, zs);
+colorbar;
+
+%%
+% *Slice along non-planar surface, Z = sin(X) - cos(Y)*
+
+zs = sin(xs) - cos(ys);
+slice(x, y, z, v, xs, ys, zs);
+colorbar;
+
+%% Contour Slices
+% You can create contour slices using <matlab:doc('contourslice')
+% |contourslice|>.
+%
+% *Contour slice along Z = 0*
+
+clf
+contourslice(x, y, z, v, [], [], 0, 20);     % 20 contour lines
+view(3); grid on;
+colorbar;
+
+%%
+% *Contour slice along Y = 0, Z = -1, Z = 1*
+
+clf;
+contourslice(x, y, z, v, [], 0, [-1 1], 10); % 10 contour lines
+view(3); grid on;
+colorbar;
+
+%%
+% *Contour slice along Z = sin(X) - cos(Y/2)*
+
+clf;
+zs = sin(xs) - cos(ys/2);
+contourslice(x, y, z, v, xs, ys, zs, 50);    % 50 contour lines
+view(3); grid on;
+colorbar;
+
+%% Isosurfaces
+% In contrast to making slices (whether they're flat planes or nonlinear),
+% a different way of exploring volumetric data is to view the "boundaries".
+% If you connect all the points with the same value, you get an
+% <matlab:doc('isosurface') |isosurface|>
+%
+% *Isosurface where V = 1e-5*
+
+clf;
+isosurface(x, y, z, v, 1e-5);
+axis([-3 3 -3 3 -3 3]);
+
+%%
+% *Isosurface where V = 1e-5 and V = -1e-4*
+
+clf;
+isosurface(x, y, z, v, 1e-5);
+isosurface(x, y, z, v, -1e-4);
+axis([-3 3 -3 3 -3 3]);
+
+%% 3D Animation
+% Let's put these visualization commands in a FOR loop to animate.
+%
+% *Isosurface*
+
+clf;
+vals = logspace(-1, -5, 25);  % 20 points from 1e-1 down to 1e-5
+h = patch(isosurface(x, y, z, v, vals(1)), ...
+   'facecolor', 'g', 'edgecolor', 'none');
+axis([-3 3 -3 3 -3 3]);
+camlight; lighting phong
+for id = vals
+   [faces, vertices] = isosurface(x, y, z, v, id);
+   set(h, 'Faces', faces, 'Vertices', vertices);
+   pause(0.1);
+end
+
+close;
+
+%%
+% <<isosurface.gif>>
+
+%%
+% *Slice*
+
+clf;
+vals = -3:0.25:3;
+h= slice(x, y, z, v, [], [], vals(1));
+axis([-3 3 -3 3 -3 3]);
+colorbar;
+for id = vals
+   delete(h);
+   h= slice(x, y, z, v, [], [], id);
+   axis([-3 3 -3 3 -3 3]);
+   colorbar;
+   pause(0.1);
+end
+
+close;
+
+%%
+% <<slice.gif>>
+
+%%
+% <TOC.html Table of Contents>
+
+##### SOURCE END #####
+--></body></html>

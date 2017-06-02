@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0106)http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part3_Animation.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><script>window.readcubeExtension = {
+  version: '1.29',
+  id: 'mfacblegickmnfpaebakfnlbfhpoegin'
+};</script>
+      
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>Animation</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-09-01"><meta name="m-file" content="Part3_Animation"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-247-568</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">f5b509e2-7eac-4ab6-ae8f-ff7208cb6697</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint/marketing/edu/marcom/eduevents/mitiap/_layouts/DocIdRedir.aspx?ID=FV3TYEPWNNQC-247-568, FV3TYEPWNNQC-247-568</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<script async="" src="./Animation_files/analytics.js.download"></script><script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-1592615-30', 'auto', 'webwwwall');
+  ga('webwwwall.send', 'pageview');
+ 
+</script>
+</head><body><div class="content"><h1>Animation</h1><!--introduction--><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a>, <a href="matlab:vis_tutorial_opencode(&#39;Part3&#39;)">Get code for this tutorial</a></p><p><i><b>Note: You can execute the code from this tutorial by highlighting them, right-clicking, and selecting "Evaluate Selection" (or hit F9).</b></i></p><p>In this tutorial, you will learn how to do animations in MATLAB. You will learn about creating animations of MATLAB graphs as well as making AVI movies and animated GIFs.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part3_Animation.html#1">Animating using Loops</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part3_Animation.html#2">Animating using Loops (Smart updating)</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part3_Animation.html#4">Animation using Timer Objects</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part3_Animation.html#5">Creating Movies (AVI)</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part3_Animation.html#6">Creating Animated GIFs</a></li></ul></div><h2>Animating using Loops<a name="1"></a></h2><p>You can easily create animations by using <a href="matlab:doc(&#39;for&#39;)"><tt>for</tt></a> loops (or <a href="matlab:doc(&#39;while&#39;)"><tt>while</tt></a> loops). At each loop iteration you can update the graph with the appropriate data for that time step.</p><pre class="codeinput">m = 1;         <span class="comment">% mass</span>
+L = 1;         <span class="comment">% link length</span>
+theta1 = 3*pi/4; <span class="comment">% initial angle for theta 1 (in rad)</span>
+theta2 = 3*pi/8; <span class="comment">% initial angle for theta 2 (in rad)</span>
+t = linspace(0, 10, 300);  <span class="comment">% simulate for 10 seconds with 300 points</span>
+
+<span class="comment">% Solving ODE of a double pendulum</span>
+[T,Y] = ode45(@(t, x) double_pendulum(t, x, m, L), <span class="keyword">...</span>
+   t, [theta1, theta2, 0, 0]);
+
+<span class="comment">% Calculating joint coordinates for animation purposes</span>
+x = [ L*sin(Y(:,1)),  L*sin(Y(:,1))+L*sin(Y(:,2))];
+y = [-L*cos(Y(:,1)), -L*cos(Y(:,1))-L*cos(Y(:,2))];
+
+<span class="comment">% Convert radians to degrees</span>
+ang = Y(:,1:2)*180/pi;
+
+figure;
+subplot(2,1,1);
+xlabel(<span class="string">'time (sec)'</span>); ylabel(<span class="string">'angle (\circ)'</span>);
+
+tic;    <span class="comment">% start timing</span>
+<span class="keyword">for</span> id = 1:length(T)
+   <span class="comment">% The top plot shows a time series of link angles</span>
+   subplot(2,1,1);
+   plot(T,ang, <span class="string">'LineWidth'</span>, 2);
+   line(T(id), ang(id,1), <span class="string">'Marker'</span>, <span class="string">'.'</span>, <span class="string">'MarkerSize'</span>, 20, <span class="string">'Color'</span>, <span class="string">'b'</span>);
+   line(T(id), ang(id,2), <span class="string">'Marker'</span>, <span class="string">'.'</span>, <span class="string">'MarkerSize'</span>, 20, <span class="string">'Color'</span>, [0 .5 0]);
+   xlabel(<span class="string">'time (sec)'</span>); ylabel(<span class="string">'angle (deg)'</span>);
+
+   <span class="comment">% The bottom plot shows the animation of the double pendulum</span>
+   subplot(2,1,2);
+   plot([0, x(id,1);x(id,1), x(id,2)], [0, y(id,1);y(id,1), y(id,2)], <span class="keyword">...</span>
+      <span class="string">'.-'</span>, <span class="string">'MarkerSize'</span>, 20, <span class="string">'LineWidth'</span>, 2);
+   axis <span class="string">equal</span>; axis([-2*L 2*L -2*L 2*L]);
+   title(sprintf(<span class="string">'Time: %0.2f sec'</span>, T(id)));
+
+   drawnow;
+<span class="keyword">end</span>
+fprintf(<span class="string">'Animation (Regular): %0.2f sec\n'</span>, toc);
+</pre><pre class="codeoutput">Animation (Regular): 9.02 sec
+</pre><img vspace="5" hspace="5" src="./Animation_files/Part3_Animation_01.png" alt=""> <h2>Animating using Loops (Smart updating)<a name="2"></a></h2><p>While it's perfectly fine to do animations like above, there's a better way of doing animation that is more efficient in terms of memory and speed. Some commands do a lot more than what the name suggests. For example, <a href="matlab:doc(&#39;plot&#39;)"><tt>plot</tt></a> may clear previous axes, remove existing graphics objects, reset some properties, and generate new graphics objects. Doing all of these actions every time through the loop may start to slow down the process especially if you are animating large amounts of data.</p><p>A better approach is to do the main plotting once, and then simply change the underlying data through the loop. To do that, you store the handles from the initial plotting routines, and use them to modify the <tt>XData</tt> and <tt>YData</tt>.</p><pre class="codeinput">figure;
+subplot(2,1,1);
+plot(T, ang, <span class="string">'LineWidth'</span>, 2);
+hh1(1) = line(T(1), ang(1,1), <span class="string">'Marker'</span>, <span class="string">'.'</span>, <span class="string">'MarkerSize'</span>, 20, <span class="string">'Color'</span>, <span class="string">'b'</span>);
+hh1(2) = line(T(1), ang(1,2), <span class="string">'Marker'</span>, <span class="string">'.'</span>, <span class="string">'MarkerSize'</span>, 20, <span class="string">'Color'</span>, [0 .5 0]);
+xlabel(<span class="string">'time (sec)'</span>); ylabel(<span class="string">'angle (deg)'</span>);
+
+subplot(2,1,2);
+hh2 = plot([0, x(1,1);x(1,1), x(1,2)], [0, y(1,1);y(1,1), y(1,2)], <span class="keyword">...</span>
+      <span class="string">'.-'</span>, <span class="string">'MarkerSize'</span>, 20, <span class="string">'LineWidth'</span>, 2);
+axis <span class="string">equal</span>
+axis([-2*L 2*L -2*L 2*L]);
+ht = title(sprintf(<span class="string">'Time: %0.2f sec'</span>, T(1)));
+
+tic;     <span class="comment">% start timing</span>
+<span class="keyword">for</span> id = 1:length(T)
+   <span class="comment">% Update XData and YData</span>
+   set(hh1(1), <span class="string">'XData'</span>, T(id)          , <span class="string">'YData'</span>, ang(id, 1));
+   set(hh1(2), <span class="string">'XData'</span>, T(id)          , <span class="string">'YData'</span>, ang(id, 2));
+   set(hh2(1), <span class="string">'XData'</span>, [0, x(id, 1)]  , <span class="string">'YData'</span>, [0, y(id, 1)]);
+   set(hh2(2), <span class="string">'XData'</span>, x(id, :)       , <span class="string">'YData'</span>, y(id, :));
+   set(ht, <span class="string">'String'</span>, sprintf(<span class="string">'Time: %0.2f sec'</span>, T(id)));
+
+   drawnow;
+<span class="keyword">end</span>
+fprintf(<span class="string">'Animation (Smart update): %0.2f sec\n'</span>, toc);
+</pre><pre class="codeoutput">Animation (Smart update): 3.22 sec
+</pre><img vspace="5" hspace="5" src="./Animation_files/Part3_Animation_02.png" alt=""> <p>If it's too fast, you can always put a <a href="matlab:doc(&#39;pause&#39;)"><tt>pause</tt></a> command instead of <a href="matlab:doc(&#39;drawnow&#39;)"><tt>drawnow</tt></a>.</p><h2>Animation using Timer Objects<a name="4"></a></h2><p>Instead of using loops, you can also create animations using MATLAB's <a href="matlab:doc(&#39;timer&#39;)"><tt>timer</tt></a> objects. Timer objects are a generic way of performing scheduled actions. One of the advantages of using a timer object is that it allows you to do other operations in MATLAB in between timer executions. The <a href="matlab:web([docroot,&#39;/techdoc/matlab_prog/f9-38012.html&#39;])">documentation</a> does a good job explaining how to use timer objects. You basically put the graphics update code inside the timer function that gets executed every time interval.</p><h2>Creating Movies (AVI)<a name="5"></a></h2><p>Once you have an animation working in MATLAB, you can easily create a movie file (AVI) using <a href="matlab:doc(&#39;avifile&#39;)"><tt>avifile</tt></a> or <a href="matlab:doc(&#39;movie2avi&#39;)"><tt>movie2avi</tt></a>.</p><pre class="codeinput"><span class="comment">% Preallocate movie structure.</span>
+mov(1:length(T)) = struct(<span class="string">'cdata'</span>, [], <span class="string">'colormap'</span>, []);
+
+<span class="comment">% Animate and add animation frame to the movie structure</span>
+<span class="keyword">for</span> id = 1:length(T)
+   <span class="comment">% Update XData and YData</span>
+   set(hh1(1), <span class="string">'XData'</span>, T(id)          , <span class="string">'YData'</span>, ang(id, 1));
+   set(hh1(2), <span class="string">'XData'</span>, T(id)          , <span class="string">'YData'</span>, ang(id, 2));
+   set(hh2(1), <span class="string">'XData'</span>, [0, x(id, 1)]  , <span class="string">'YData'</span>, [0, y(id, 1)]);
+   set(hh2(2), <span class="string">'XData'</span>, x(id, :)       , <span class="string">'YData'</span>, y(id, :));
+   set(ht, <span class="string">'String'</span>, sprintf(<span class="string">'Time: %0.2f sec'</span>, T(id)));
+
+   <span class="comment">% Get frame as an image</span>
+   mov(id) = getframe(gcf);
+<span class="keyword">end</span>
+
+<span class="comment">% Create AVI file</span>
+movie2avi(mov, <span class="string">'animation.avi'</span>);
+
+clear <span class="string">mov</span>
+</pre><h2>Creating Animated GIFs<a name="6"></a></h2><p>Another way to save the animation is to create an animated GIF. You can create one using the <a href="matlab:doc(&#39;imwrite&#39;)"><tt>imwrite</tt></a> function.</p><pre class="codeinput"><span class="comment">% Get figure size</span>
+pos = get(gcf, <span class="string">'Position'</span>);
+width = pos(3);
+height = pos(4);
+
+<span class="comment">% Preallocate</span>
+mov = zeros(height, width, 1, length(T), <span class="string">'uint8'</span>);
+
+<span class="comment">% Animate and add animation frame to the movie structure</span>
+<span class="keyword">for</span> id = 1:length(T)
+   <span class="comment">% Update XData and YData</span>
+   set(hh1(1), <span class="string">'XData'</span>, T(id)          , <span class="string">'YData'</span>, ang(id, 1));
+   set(hh1(2), <span class="string">'XData'</span>, T(id)          , <span class="string">'YData'</span>, ang(id, 2));
+   set(hh2(1), <span class="string">'XData'</span>, [0, x(id, 1)]  , <span class="string">'YData'</span>, [0, y(id, 1)]);
+   set(hh2(2), <span class="string">'XData'</span>, x(id, :)       , <span class="string">'YData'</span>, y(id, :));
+   set(ht, <span class="string">'String'</span>, sprintf(<span class="string">'Time: %0.2f sec'</span>, T(id)));
+
+   <span class="comment">% Get frame as an image</span>
+   f = getframe(gcf);
+
+   <span class="comment">% Create a colormap for the first frame. For the rest of the frames, use</span>
+   <span class="comment">% the same colormap</span>
+   <span class="keyword">if</span> id == 1
+      [mov(:,:,1,id), map] = rgb2ind(f.cdata, 256, <span class="string">'nodither'</span>);
+   <span class="keyword">else</span>
+      mov(:,:,1,id) = rgb2ind(f.cdata, map, <span class="string">'nodither'</span>);
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Create animated GIF</span>
+imwrite(mov, map, <span class="string">'animation.gif'</span>, <span class="string">'DelayTime'</span>, 0, <span class="string">'LoopCount'</span>, inf)
+</pre><p><img vspace="5" hspace="5" src="./Animation_files/animation.gif" alt=""> </p><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a></p><p class="footer">Copyright 2010 The MathWorks, Inc.<br>
+      Published with MATLAB® 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Animation
+% <TOC.html Table of Contents>, <matlab:vis_tutorial_opencode('Part3') Get
+% code for this tutorial>
+%
+% _*Note: You can execute the code from this tutorial by highlighting them,
+% right-clicking, and selecting "Evaluate Selection" (or hit F9).*_
+%
+% In this tutorial, you will learn how to do animations in MATLAB. You will
+% learn about creating animations of MATLAB graphs as well as making AVI
+% movies and animated GIFs.
+
+% Copyright 2010 The MathWorks, Inc.
+
+%% Animating using Loops
+% You can easily create animations by using <matlab:doc('for') |for|> loops
+% (or <matlab:doc('while') |while|> loops). At each loop iteration you can
+% update the graph with the appropriate data for that time step.
+
+m = 1;         % mass
+L = 1;         % link length
+theta1 = 3*pi/4; % initial angle for theta 1 (in rad)
+theta2 = 3*pi/8; % initial angle for theta 2 (in rad)
+t = linspace(0, 10, 300);  % simulate for 10 seconds with 300 points
+
+% Solving ODE of a double pendulum
+[T,Y] = ode45(@(t, x) double_pendulum(t, x, m, L), ...
+   t, [theta1, theta2, 0, 0]);
+
+% Calculating joint coordinates for animation purposes
+x = [ L*sin(Y(:,1)),  L*sin(Y(:,1))+L*sin(Y(:,2))];
+y = [-L*cos(Y(:,1)), -L*cos(Y(:,1))-L*cos(Y(:,2))];
+
+% Convert radians to degrees
+ang = Y(:,1:2)*180/pi;
+
+figure;
+subplot(2,1,1);
+xlabel('time (sec)'); ylabel('angle (\circ)');
+
+tic;    % start timing
+for id = 1:length(T)
+   % The top plot shows a time series of link angles
+   subplot(2,1,1);
+   plot(T,ang, 'LineWidth', 2);
+   line(T(id), ang(id,1), 'Marker', '.', 'MarkerSize', 20, 'Color', 'b');
+   line(T(id), ang(id,2), 'Marker', '.', 'MarkerSize', 20, 'Color', [0 .5 0]);
+   xlabel('time (sec)'); ylabel('angle (deg)');
+   
+   % The bottom plot shows the animation of the double pendulum
+   subplot(2,1,2);
+   plot([0, x(id,1);x(id,1), x(id,2)], [0, y(id,1);y(id,1), y(id,2)], ...
+      '.-', 'MarkerSize', 20, 'LineWidth', 2);
+   axis equal; axis([-2*L 2*L -2*L 2*L]);
+   title(sprintf('Time: %0.2f sec', T(id)));
+
+   drawnow;
+end
+fprintf('Animation (Regular): %0.2f sec\n', toc);
+
+%% Animating using Loops (Smart updating)
+% While it's perfectly fine to do animations like above, there's a better
+% way of doing animation that is more efficient in terms of memory and
+% speed. Some commands do a lot more than what the name suggests. For
+% example, <matlab:doc('plot') |plot|> may clear previous axes, remove
+% existing graphics objects, reset some properties, and generate new
+% graphics objects. Doing all of these actions every time through the loop
+% may start to slow down the process especially if you are animating large
+% amounts of data.
+%
+% A better approach is to do the main plotting once, and then simply change
+% the underlying data through the loop. To do that, you store the handles
+% from the initial plotting routines, and use them to modify the |XData|
+% and |YData|.
+
+figure;
+subplot(2,1,1);
+plot(T, ang, 'LineWidth', 2);
+hh1(1) = line(T(1), ang(1,1), 'Marker', '.', 'MarkerSize', 20, 'Color', 'b');
+hh1(2) = line(T(1), ang(1,2), 'Marker', '.', 'MarkerSize', 20, 'Color', [0 .5 0]);
+xlabel('time (sec)'); ylabel('angle (deg)');
+
+subplot(2,1,2);
+hh2 = plot([0, x(1,1);x(1,1), x(1,2)], [0, y(1,1);y(1,1), y(1,2)], ...
+      '.-', 'MarkerSize', 20, 'LineWidth', 2);
+axis equal
+axis([-2*L 2*L -2*L 2*L]);
+ht = title(sprintf('Time: %0.2f sec', T(1)));
+
+tic;     % start timing
+for id = 1:length(T)
+   % Update XData and YData
+   set(hh1(1), 'XData', T(id)          , 'YData', ang(id, 1));
+   set(hh1(2), 'XData', T(id)          , 'YData', ang(id, 2));
+   set(hh2(1), 'XData', [0, x(id, 1)]  , 'YData', [0, y(id, 1)]);
+   set(hh2(2), 'XData', x(id, :)       , 'YData', y(id, :));
+   set(ht, 'String', sprintf('Time: %0.2f sec', T(id)));
+   
+   drawnow;
+end
+fprintf('Animation (Smart update): %0.2f sec\n', toc);
+
+%%
+% If it's too fast, you can always put a <matlab:doc('pause') |pause|>
+% command instead of <matlab:doc('drawnow') |drawnow|>.
+
+%% Animation using Timer Objects
+% Instead of using loops, you can also create animations using MATLAB's
+% <matlab:doc('timer') |timer|> objects. Timer objects are a generic way
+% of performing scheduled actions. One of the advantages of using a timer
+% object is that it allows you to do other operations in MATLAB in between
+% timer executions. The
+% <matlab:web([docroot,'/techdoc/matlab_prog/f9-38012.html'])
+% documentation> does a good job explaining how to use timer objects. You
+% basically put the graphics update code inside the timer function that
+% gets executed every time interval.
+
+%% Creating Movies (AVI)
+% Once you have an animation working in MATLAB, you can easily create a
+% movie file (AVI) using <matlab:doc('avifile') |avifile|> or
+% <matlab:doc('movie2avi') |movie2avi|>.
+
+% Preallocate movie structure.
+mov(1:length(T)) = struct('cdata', [], 'colormap', []);
+
+% Animate and add animation frame to the movie structure
+for id = 1:length(T)
+   % Update XData and YData
+   set(hh1(1), 'XData', T(id)          , 'YData', ang(id, 1));
+   set(hh1(2), 'XData', T(id)          , 'YData', ang(id, 2));
+   set(hh2(1), 'XData', [0, x(id, 1)]  , 'YData', [0, y(id, 1)]);
+   set(hh2(2), 'XData', x(id, :)       , 'YData', y(id, :));
+   set(ht, 'String', sprintf('Time: %0.2f sec', T(id)));
+   
+   % Get frame as an image
+   mov(id) = getframe(gcf);
+end
+
+% Create AVI file
+movie2avi(mov, 'animation.avi');
+
+clear mov
+
+%% Creating Animated GIFs
+% Another way to save the animation is to create an animated GIF. You can
+% create one using the <matlab:doc('imwrite') |imwrite|> function.
+
+% Get figure size
+pos = get(gcf, 'Position');
+width = pos(3);
+height = pos(4);
+
+% Preallocate
+mov = zeros(height, width, 1, length(T), 'uint8');
+
+% Animate and add animation frame to the movie structure
+for id = 1:length(T)
+   % Update XData and YData
+   set(hh1(1), 'XData', T(id)          , 'YData', ang(id, 1));
+   set(hh1(2), 'XData', T(id)          , 'YData', ang(id, 2));
+   set(hh2(1), 'XData', [0, x(id, 1)]  , 'YData', [0, y(id, 1)]);
+   set(hh2(2), 'XData', x(id, :)       , 'YData', y(id, :));
+   set(ht, 'String', sprintf('Time: %0.2f sec', T(id)));
+   
+   % Get frame as an image
+   f = getframe(gcf);
+   
+   % Create a colormap for the first frame. For the rest of the frames, use
+   % the same colormap
+   if id == 1
+      [mov(:,:,1,id), map] = rgb2ind(f.cdata, 256, 'nodither');
+   else
+      mov(:,:,1,id) = rgb2ind(f.cdata, map, 'nodither');
+   end
+end
+
+% Create animated GIF
+imwrite(mov, map, 'animation.gif', 'DelayTime', 0, 'LoopCount', inf)
+
+%%
+% <<animation.gif>>
+%
+% <TOC.html Table of Contents>
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0122)http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><script>window.readcubeExtension = {
+  version: '1.29',
+  id: 'mfacblegickmnfpaebakfnlbfhpoegin'
+};</script>
+      
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>Customizing Graphics Programmatically</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2010-09-01"><meta name="m-file" content="Part5_ProgrammaticCustomization"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-247-576</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">adbc2a5b-d425-432f-be55-4acff8a652ac</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint/marketing/edu/marcom/eduevents/mitiap/_layouts/DocIdRedir.aspx?ID=FV3TYEPWNNQC-247-576, FV3TYEPWNNQC-247-576</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<script async="" src="./Customizing Graphics Programmatically_files/analytics.js.download"></script><script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-1592615-30', 'auto', 'webwwwall');
+  ga('webwwwall.send', 'pageview');
+ 
+</script>
+</head><body><div id="StayFocusd-infobar" style="display:none;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div><div class="content"><h1>Customizing Graphics Programmatically</h1><!--introduction--><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a>, <a href="matlab:vis_tutorial_opencode(&#39;Part5&#39;)">Get code for this tutorial</a></p><p><i><b>Note: You can execute the code from this tutorial by highlighting them, right-clicking, and selecting "Evaluate Selection" (or hit F9).</b></i></p><p>In this tutorial, you will see how you can customize your graphs programmatically.</p><p>For this example, the final goal will be to create a publication-quality graph and export it as an EPS file (postscript) that is 5 inches wide and 4 inches tall.</p><p>This tutorial is based on this blog post <a href="matlab:web(&#39;http://blogs.mathworks.com/loren/2007/12/11/making-pretty-graphs/&#39;,&#39;-new&#39;)">"Making Pretty Graphs"</a>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#1">Load Data</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#2">Create Basic Plot</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#3">Adjust Line Properties (Functional)</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#4">Adjust Line Properties (Aesthetics)</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#5">Add Legend and Labels</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#6">Adjust Font and Axes Properties</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#7">Export to EPS</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#8">Export to Black and White (Grayscale) EPS</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part5_ProgrammaticCustomization.html#9">Exported EPS file</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>Load the data necessary for this exercise.</p><pre class="codeinput">load <span class="string">data</span>
+</pre><h2>Create Basic Plot<a name="2"></a></h2><p>First, plot the data to create the crude visualization. To ensure that the final dimensions (after exporting) are correct, specify with the "Position" property.</p><pre class="codeinput"><span class="comment">% 5 inches wide and 4 inches tall</span>
+figure(<span class="string">'Units'</span>, <span class="string">'inches'</span>, <span class="string">'Position'</span>, [1 1 5 4]);
+hold <span class="string">on</span>;
+
+hFit   = plot(xfit  , yfit   );
+hE     = errorbar(xdata_m, ydata_m, ydata_s);
+hCI    = patch([xmodel,fliplr(xmodel)], [ymodelL,fliplr(ymodelU)], <span class="keyword">...</span>
+               [.8 .8 .8]);
+hData  = plot(xVdata, yVdata );
+hModel = plot(xmodel, ymodel );
+</pre><img vspace="5" hspace="5" src="./Customizing Graphics Programmatically_files/Part5_ProgrammaticCustomization_01.png" alt=""> <h2>Adjust Line Properties (Functional)<a name="3"></a></h2><p>Next, do the first-round modification. At this point, we're not worried about the aesthetics yet.</p><pre class="codeinput">set(hFit                           , <span class="keyword">...</span>
+   <span class="string">'Color'</span>           , [0 0 .5]    );
+set(hE                             , <span class="keyword">...</span>
+   <span class="string">'LineStyle'</span>       , <span class="string">'none'</span>      , <span class="keyword">...</span>
+   <span class="string">'Marker'</span>          , <span class="string">'.'</span>         , <span class="keyword">...</span>
+   <span class="string">'Color'</span>           , [.3 .3 .3]  );
+set(hData                          , <span class="keyword">...</span>
+   <span class="string">'LineStyle'</span>       , <span class="string">'none'</span>      , <span class="keyword">...</span>
+   <span class="string">'Marker'</span>          , <span class="string">'.'</span>         );
+set(hModel                         , <span class="keyword">...</span>
+   <span class="string">'LineStyle'</span>       , <span class="string">'-.'</span>        , <span class="keyword">...</span>
+   <span class="string">'Color'</span>           , <span class="string">'r'</span>         );
+set(hCI                            , <span class="keyword">...</span>
+   <span class="string">'EdgeColor'</span>       , <span class="string">'none'</span>      );
+</pre><img vspace="5" hspace="5" src="./Customizing Graphics Programmatically_files/Part5_ProgrammaticCustomization_02.png" alt=""> <h2>Adjust Line Properties (Aesthetics)<a name="4"></a></h2><p>To make it more publication-quality, make the following changes to the line properties, including the errorbar widths. This is a preference, but using thicker lines and larger markers greatly improves the "look".</p><pre class="codeinput">set(hFit                          , <span class="keyword">...</span>
+   <span class="string">'LineWidth'</span>       , 2           );
+set(hE                            , <span class="keyword">...</span>
+   <span class="string">'LineWidth'</span>       , 1           , <span class="keyword">...</span>
+   <span class="string">'Marker'</span>          , <span class="string">'o'</span>         , <span class="keyword">...</span>
+   <span class="string">'MarkerSize'</span>      , 6           , <span class="keyword">...</span>
+   <span class="string">'MarkerEdgeColor'</span> , [.2 .2 .2]  , <span class="keyword">...</span>
+   <span class="string">'MarkerFaceColor'</span> , [.7 .7 .7]  );
+set(hData                          , <span class="keyword">...</span>
+   <span class="string">'Marker'</span>          , <span class="string">'o'</span>         , <span class="keyword">...</span>
+   <span class="string">'MarkerSize'</span>      , 5           , <span class="keyword">...</span>
+   <span class="string">'MarkerEdgeColor'</span> , <span class="string">'none'</span>      , <span class="keyword">...</span>
+   <span class="string">'MarkerFaceColor'</span> , [.5 .5  1]  );
+set(hModel                         , <span class="keyword">...</span>
+   <span class="string">'LineWidth'</span>       , 1.5         );
+
+<span class="comment">% adjust error bar width</span>
+hE_c                   = get(hE     , <span class="string">'Children'</span>    );
+errorbarXData          = get(hE_c(2), <span class="string">'XData'</span>       );
+errorbarXData(4:9:end) = errorbarXData(1:9:end) - 0.2;
+errorbarXData(7:9:end) = errorbarXData(1:9:end) - 0.2;
+errorbarXData(5:9:end) = errorbarXData(1:9:end) + 0.2;
+errorbarXData(8:9:end) = errorbarXData(1:9:end) + 0.2;
+set(hE_c(2), <span class="string">'XData'</span>, errorbarXData);
+</pre><img vspace="5" hspace="5" src="./Customizing Graphics Programmatically_files/Part5_ProgrammaticCustomization_03.png" alt=""> <h2>Add Legend and Labels<a name="5"></a></h2><p>No plot is complete unless it is well annotated.</p><pre class="codeinput">hTitle  = title (<span class="string">'My Publication-Quality Graphics'</span>);
+hXLabel = xlabel(<span class="string">'Length (m)'</span>                     );
+hYLabel = ylabel(<span class="string">'Mass (kg)'</span>                      );
+
+txt   = sprintf(<span class="string">'{\\itC = %0.1g \\pm %0.1g (CI)}'</span>, c, cint(2)-c);
+hText = text(10, 800, txt);
+
+hLegend = legend([hE, hFit, hData, hModel, hCI(1)], <span class="keyword">...</span>
+   <span class="string">'Data ({\it\mu} \pm {\it\sigma})'</span> , <span class="keyword">...</span>
+   <span class="string">'Fit (C{\itx}^3)'</span>      , <span class="keyword">...</span>
+   <span class="string">'Validation Data'</span>       , <span class="keyword">...</span>
+   <span class="string">'Model (C{\itx}^3)'</span>    , <span class="keyword">...</span>
+   <span class="string">'95% CI'</span>                , <span class="keyword">...</span>
+   <span class="string">'location'</span>, <span class="string">'NorthWest'</span> );
+</pre><img vspace="5" hspace="5" src="./Customizing Graphics Programmatically_files/Part5_ProgrammaticCustomization_04.png" alt=""> <h2>Adjust Font and Axes Properties<a name="6"></a></h2><p>Since many publications accept EPS formats, select fonts that are supported by PostScript and Ghostscript. Anything that's not supported will be replaced by Courier. Also define tick locations, especially when the default is too crowded.</p><pre class="codeinput">set( gca                             , <span class="string">'FontName'</span>   , <span class="string">'Helvetica'</span> );
+set([hTitle, hXLabel, hYLabel, hText], <span class="string">'FontName'</span>   , <span class="string">'Palatino'</span>);
+set([hLegend, gca]                   , <span class="string">'FontSize'</span>   , 8           );
+set([hXLabel, hYLabel, hText]        , <span class="string">'FontSize'</span>   , 10          );
+set( hTitle                          , <span class="string">'FontSize'</span>   , 12          , <span class="keyword">...</span>
+   <span class="string">'FontWeight'</span> , <span class="string">'bold'</span>      );
+
+set(gca, <span class="keyword">...</span>
+   <span class="string">'Box'</span>         , <span class="string">'off'</span>     , <span class="keyword">...</span>
+   <span class="string">'TickDir'</span>     , <span class="string">'out'</span>     , <span class="keyword">...</span>
+   <span class="string">'TickLength'</span>  , [.02 .02] , <span class="keyword">...</span>
+   <span class="string">'XMinorTick'</span>  , <span class="string">'on'</span>      , <span class="keyword">...</span>
+   <span class="string">'YMinorTick'</span>  , <span class="string">'on'</span>      , <span class="keyword">...</span>
+   <span class="string">'YGrid'</span>       , <span class="string">'on'</span>      , <span class="keyword">...</span>
+   <span class="string">'XColor'</span>      , [.3 .3 .3], <span class="keyword">...</span>
+   <span class="string">'YColor'</span>      , [.3 .3 .3], <span class="keyword">...</span>
+   <span class="string">'YTick'</span>       , 0:500:2500, <span class="keyword">...</span>
+   <span class="string">'LineWidth'</span>   , 1         );
+</pre><img vspace="5" hspace="5" src="./Customizing Graphics Programmatically_files/Part5_ProgrammaticCustomization_05.png" alt=""> <h2>Export to EPS<a name="7"></a></h2><p>When exporting, the best way to specify the final dimension is to set the <tt>PaperSize</tt> and the <tt>PaperPosition</tt> properties. If you want a WYSIWYG behavior (adjust how you want it to look on screen), set the <tt>PaperPositionMode</tt> to auto. When exporting to a postscript format, select '-loose' option to make sure that the figure edge is not cropped.</p><pre class="codeinput"><span class="comment">% Make the paper size the same as the figure size (no extra borders)</span>
+set(gcf, <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>);
+set(gcf, <span class="string">'PaperUnits'</span>, <span class="string">'inches'</span>, <span class="string">'PaperSize'</span>, [5 4]);
+
+print <span class="string">-depsc2</span> <span class="string">-loose</span> <span class="string">finalPlot.eps</span>
+</pre><h2>Export to Black and White (Grayscale) EPS<a name="8"></a></h2><p>Many journals require figures to be black and white (or gray scale). To do that, convert all colors to gray scale and then export.</p><pre class="codeinput">set(hFit  , <span class="string">'Color'</span>           , <span class="string">'k'</span>       );
+set(hModel, <span class="string">'Color'</span>           , [.2 .2 .2]);
+set(hData , <span class="string">'MarkerFaceColor'</span> , [.4 .4 .4]);
+
+print <span class="string">-depsc2</span> <span class="string">-loose</span> <span class="string">finalPlotBW.eps</span>
+</pre><img vspace="5" hspace="5" src="./Customizing Graphics Programmatically_files/Part5_ProgrammaticCustomization_06.png" alt=""> <h2>Exported EPS file<a name="9"></a></h2><p>The exported EPS file looks like this:</p><p><img vspace="5" hspace="5" src="./Customizing Graphics Programmatically_files/finalPlot.png" alt=""> </p><p>And the gray scale version:</p><p><img vspace="5" hspace="5" src="./Customizing Graphics Programmatically_files/finalPlotBW.png" alt=""> </p><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a></p><p class="footer">Copyright 2010 The MathWorks, Inc.<br>
+      Published with MATLAB® 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Customizing Graphics Programmatically
+% <TOC.html Table of Contents>, <matlab:vis_tutorial_opencode('Part5') Get
+% code for this tutorial>
+%
+% _*Note: You can execute the code from this tutorial by highlighting them,
+% right-clicking, and selecting "Evaluate Selection" (or hit F9).*_
+%
+% In this tutorial, you will see how you can customize your graphs
+% programmatically.
+%
+% For this example, the final goal will be to create a publication-quality
+% graph and export it as an EPS file (postscript) that is 5 inches wide and
+% 4 inches tall.
+%
+% This tutorial is based on this blog post
+% <matlab:web('http://blogs.mathworks.com/loren/2007/12/11/making-pretty-graphs/','-new')
+% "Making Pretty Graphs">.
+
+% Copyright 2010 The MathWorks, Inc.
+
+%% Load Data
+% Load the data necessary for this exercise.
+
+load data
+
+%% Create Basic Plot
+% First, plot the data to create the crude visualization. To ensure that
+% the final dimensions (after exporting) are correct, specify with the
+% "Position" property.
+
+% 5 inches wide and 4 inches tall
+figure('Units', 'inches', 'Position', [1 1 5 4]);
+hold on;
+
+hFit   = plot(xfit  , yfit   );
+hE     = errorbar(xdata_m, ydata_m, ydata_s);
+hCI    = patch([xmodel,fliplr(xmodel)], [ymodelL,fliplr(ymodelU)], ...
+               [.8 .8 .8]);
+hData  = plot(xVdata, yVdata );
+hModel = plot(xmodel, ymodel );
+
+%% Adjust Line Properties (Functional)
+% Next, do the first-round modification. At this point, we're not worried
+% about the aesthetics yet.
+
+set(hFit                           , ...
+   'Color'           , [0 0 .5]    );
+set(hE                             , ...
+   'LineStyle'       , 'none'      , ...
+   'Marker'          , '.'         , ...
+   'Color'           , [.3 .3 .3]  );
+set(hData                          , ...
+   'LineStyle'       , 'none'      , ...
+   'Marker'          , '.'         );
+set(hModel                         , ...
+   'LineStyle'       , '-.'        , ...
+   'Color'           , 'r'         );
+set(hCI                            , ...
+   'EdgeColor'       , 'none'      );
+
+%% Adjust Line Properties (Aesthetics)
+% To make it more publication-quality, make the following changes to the
+% line properties, including the errorbar widths. This is a preference, but
+% using thicker lines and larger markers greatly improves the "look".
+
+set(hFit                          , ...
+   'LineWidth'       , 2           );
+set(hE                            , ...
+   'LineWidth'       , 1           , ...
+   'Marker'          , 'o'         , ...
+   'MarkerSize'      , 6           , ...
+   'MarkerEdgeColor' , [.2 .2 .2]  , ...
+   'MarkerFaceColor' , [.7 .7 .7]  );
+set(hData                          , ...
+   'Marker'          , 'o'         , ...
+   'MarkerSize'      , 5           , ...
+   'MarkerEdgeColor' , 'none'      , ...
+   'MarkerFaceColor' , [.5 .5  1]  );
+set(hModel                         , ...
+   'LineWidth'       , 1.5         );
+
+% adjust error bar width
+hE_c                   = get(hE     , 'Children'    );
+errorbarXData          = get(hE_c(2), 'XData'       );
+errorbarXData(4:9:end) = errorbarXData(1:9:end) - 0.2;
+errorbarXData(7:9:end) = errorbarXData(1:9:end) - 0.2;
+errorbarXData(5:9:end) = errorbarXData(1:9:end) + 0.2;
+errorbarXData(8:9:end) = errorbarXData(1:9:end) + 0.2;
+set(hE_c(2), 'XData', errorbarXData);
+
+%% Add Legend and Labels
+% No plot is complete unless it is well annotated.
+
+hTitle  = title ('My Publication-Quality Graphics');
+hXLabel = xlabel('Length (m)'                     );
+hYLabel = ylabel('Mass (kg)'                      );
+
+txt   = sprintf('{\\itC = %0.1g \\pm %0.1g (CI)}', c, cint(2)-c);
+hText = text(10, 800, txt);
+
+hLegend = legend([hE, hFit, hData, hModel, hCI(1)], ...
+   'Data ({\it\mu} \pm {\it\sigma})' , ...
+   'Fit (C{\itx}^3)'      , ...
+   'Validation Data'       , ...
+   'Model (C{\itx}^3)'    , ...
+   '95% CI'                , ...
+   'location', 'NorthWest' );
+
+%% Adjust Font and Axes Properties
+% Since many publications accept EPS formats, select fonts that are
+% supported by PostScript and Ghostscript. Anything that's not supported
+% will be replaced by Courier. Also define tick locations, especially when
+% the default is too crowded.
+
+set( gca                             , 'FontName'   , 'Helvetica' );
+set([hTitle, hXLabel, hYLabel, hText], 'FontName'   , 'Palatino');
+set([hLegend, gca]                   , 'FontSize'   , 8           );
+set([hXLabel, hYLabel, hText]        , 'FontSize'   , 10          );
+set( hTitle                          , 'FontSize'   , 12          , ...
+   'FontWeight' , 'bold'      );
+
+set(gca, ...
+   'Box'         , 'off'     , ...
+   'TickDir'     , 'out'     , ...
+   'TickLength'  , [.02 .02] , ...
+   'XMinorTick'  , 'on'      , ...
+   'YMinorTick'  , 'on'      , ...
+   'YGrid'       , 'on'      , ...
+   'XColor'      , [.3 .3 .3], ...
+   'YColor'      , [.3 .3 .3], ...
+   'YTick'       , 0:500:2500, ...
+   'LineWidth'   , 1         );
+
+%% Export to EPS
+% When exporting, the best way to specify the final dimension is to set the
+% |PaperSize| and the |PaperPosition| properties. If you want a WYSIWYG
+% behavior (adjust how you want it to look on screen), set the
+% |PaperPositionMode| to auto. When exporting to a postscript format,
+% select '-loose' option to make sure that the figure edge is not cropped.
+
+% Make the paper size the same as the figure size (no extra borders)
+set(gcf, 'PaperPositionMode', 'auto');
+set(gcf, 'PaperUnits', 'inches', 'PaperSize', [5 4]);
+
+print -depsc2 -loose finalPlot.eps
+
+%%% Export to Black and White (Grayscale) EPS
+% Many journals require figures to be black and white (or gray scale). To
+% do that, convert all colors to gray scale and then export.
+
+set(hFit  , 'Color'           , 'k'       );
+set(hModel, 'Color'           , [.2 .2 .2]);
+set(hData , 'MarkerFaceColor' , [.4 .4 .4]);
+
+print -depsc2 -loose finalPlotBW.eps
+
+%% Exported EPS file
+% The exported EPS file looks like this:
+%
+% <<finalPlot.png>>
+%
+% And the gray scale version:
+%
+% <<finalPlotBW.png>>
+%
+% <TOC.html Table of Contents>
+
+##### SOURCE END #####
+--></body></html>

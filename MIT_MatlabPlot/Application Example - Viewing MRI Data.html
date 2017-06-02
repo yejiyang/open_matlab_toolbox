@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0128)http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><script>window.readcubeExtension = {
+  version: '1.29',
+  id: 'mfacblegickmnfpaebakfnlbfhpoegin'
+};</script>
+      
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Application Example - Viewing MRI Data</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-01-09"><meta name="DC.source" content="MRIApplication.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-247-507</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">5d7bef7c-7c7b-4f23-a5e5-239edeb0692b</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint/marketing/edu/marcom/eduevents/mitiap/_layouts/DocIdRedir.aspx?ID=FV3TYEPWNNQC-247-507, FV3TYEPWNNQC-247-507</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<script async="" src="./Application Example - Viewing MRI Data_files/analytics.js.download"></script><script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-1592615-30', 'auto', 'webwwwall');
+  ga('webwwwall.send', 'pageview');
+ 
+</script>
+</head><body><div id="StayFocusd-infobar" style="display: none; top: 4719px;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div><div class="content"><h1>Application Example - Viewing MRI Data</h1><!--introduction--><p>An example of scalar data includes magnetic resonance imaging (MRI) data. This data typically contains a number of slice planes taken through a volume, such as the human body. MATLAB includes an MRI data set that contains 27 image slices of a human head. This example illustrate the following techniques applied to MRI data:</p><div><ol><li>A series of 2-D images representing slices through the head</li><li>2-D and 3-D contour slices taken at arbitrary locations within the data</li><li>An isosurface with isocaps showing a cross section of the interior</li></ol></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html#1">Changing the Data Format</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html#3">Displaying Images of MRI Data</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html#5">Displaying a 2-D Contour Slice</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html#6">Displaying 3-D Contour Slices</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html#7">Applying an Isosurface to the MRI Data</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html#10">Adding Isocaps to Show a Cut-Away Surface</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html#11">Defining the View</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ApplicationExamples/MRIApplication/html/MRIApplication.html#12">Add Lighting</a></li></ul></div><h2>Changing the Data Format<a name="1"></a></h2><p>The MRI data, D, is stored as a 128-by-128-by-1-by-27 array. The third array dimension is used typically for the image color data. However, since these are indexed images (a colormap, map, is also loaded) there is no information in the third dimension, which you can remove using the squeeze command. The result is a 128-by-128-by-27 array.</p><p>The first step is to load the data and transform the data array from 4-D to 3-D.</p><pre class="codeinput">load <span class="string">mri</span>
+D = squeeze(D);
+</pre><h2>Displaying Images of MRI Data<a name="3"></a></h2><p>To display one of the MRI images, use the image command:</p><div><ul><li>Create a new figure that uses the MRI colormap, which is loaded with the data:</li><li>Index into the data array to obtain the data for the eighth image.</li><li>Adjust axis scaling.</li></ul></div><pre class="codeinput">figure(<span class="string">'Colormap'</span>,map)
+image_num = 8;
+image(D(:,:,image_num))
+axis <span class="string">image</span>
+</pre><img vspace="5" hspace="5" src="./Application Example - Viewing MRI Data_files/MRIApplication_01.png" alt=""> <p>Save the x- and y-axis limits for use in the next part of the example:</p><pre class="codeinput">x = xlim;
+y = ylim;
+</pre><h2>Displaying a 2-D Contour Slice<a name="5"></a></h2><p>Visualize MRI data as a volume data because it is a collection of slices taken progressively through the 3-D object. Use contourslice to display a contour plot of a volume slice. Create a contour plot with the same orientation and size as the image created in the first part of this example:</p><div><ul><li>Adjust the y-axis direction (axis).</li><li>Set the limits (xlim, ylim).</li><li>Set the data aspect ratio (daspect).</li></ul></div><p>To improve the visibility of details, this contour plot uses the jet colormap. The brighten function reduces the brightness of the color values.</p><pre class="codeinput">cm = brighten(jet(length(map)),-.5);
+figure(<span class="string">'Colormap'</span>,cm)
+contourslice(D,[],[],image_num)
+axis <span class="string">ij</span>
+xlim(x)
+ylim(y)
+daspect([1,1,1])
+</pre><img vspace="5" hspace="5" src="./Application Example - Viewing MRI Data_files/MRIApplication_02.png" alt=""> <h2>Displaying 3-D Contour Slices<a name="6"></a></h2><p>Unlike images, which are 2-D objects, contour slices are 3-D objects that you can display in any orientation. For example, you can display four contour slices in a 3-D view.</p><pre class="codeinput">figure(<span class="string">'Colormap'</span>,cm)
+contourslice(D,[],[],[1,12,19,27],8);
+view(3); axis <span class="string">tight</span>
+</pre><img vspace="5" hspace="5" src="./Application Example - Viewing MRI Data_files/MRIApplication_03.png" alt=""> <h2>Applying an Isosurface to the MRI Data<a name="7"></a></h2><p>You can use isosurfaces to display the overall structure of a volume. When combined with isocaps, this technique can reveal information about data on the interior of the isosurface.</p><p>First, smooth the data with smooth3; then use isosurface to calculate the isodata. Use patch to display this data in a figure that uses the original gray scale color map for the isocaps.</p><pre class="codeinput">figure(<span class="string">'Colormap'</span>,map)
+Ds = smooth3(D);
+hiso = patch(isosurface(Ds,5),<span class="keyword">...</span>
+    <span class="string">'FaceColor'</span>,[1,.75,.65],<span class="keyword">...</span>
+    <span class="string">'EdgeColor'</span>,<span class="string">'none'</span>);
+isonormals(Ds,hiso)
+</pre><img vspace="5" hspace="5" src="./Application Example - Viewing MRI Data_files/MRIApplication_04.png" alt=""> <p>The isonormals function to renders the isosurface using vertex normals obtained from the smoothed data, improving the quality of the isosurface. The isosurface uses a single color to represent its isovalue.</p><h2>Adding Isocaps to Show a Cut-Away Surface<a name="10"></a></h2><p>Use isocaps to calculate the data for another patch that is displayed at the same isovalue (5) as the isosurface. Use the unsmoothed data (D) to show details of the interior. You can see this as the sliced-away top of the head. The lower isocap is not visible in the final view.</p><pre class="codeinput">hcap = patch(isocaps(D,5),<span class="keyword">...</span>
+    <span class="string">'FaceColor'</span>,<span class="string">'interp'</span>,<span class="keyword">...</span>
+    <span class="string">'EdgeColor'</span>,<span class="string">'none'</span>);
+</pre><img vspace="5" hspace="5" src="./Application Example - Viewing MRI Data_files/MRIApplication_05.png" alt=""> <h2>Defining the View<a name="11"></a></h2><p>Define the view and set the aspect ratio (view, axis, daspect).</p><pre class="codeinput">view(35,30)
+axis <span class="string">tight</span>
+daspect([1,1,.4])
+</pre><img vspace="5" hspace="5" src="./Application Example - Viewing MRI Data_files/MRIApplication_06.png" alt=""> <h2>Add Lighting<a name="12"></a></h2><p>Add lighting and recalculate the surface normals based on the gradient of the volume data, which produces smoother lighting (camlight, lighting, isonormals). Increase the AmbientStrength property of the isocap to brighten the coloring without affecting the isosurface. Set the SpecularColorReflectance of the isosurface to make the color of the specular reflected light closer to the color of the isosurface; then set the SpecularExponent to reduce the size of the specular spot.</p><pre class="codeinput">lightangle(45,30);
+set(gcf,<span class="string">'Renderer'</span>,<span class="string">'zbuffer'</span>); lighting <span class="string">phong</span>
+set(hcap,<span class="string">'AmbientStrength'</span>,.6)
+set(hiso,<span class="string">'SpecularColorReflectance'</span>,0,<span class="string">'SpecularExponent'</span>,50)
+</pre><img vspace="5" hspace="5" src="./Application Example - Viewing MRI Data_files/MRIApplication_07.png" alt=""> <p>An Isocap combined with an isosurface to visualize MRI data. The isocaps use interpolated face coloring, which means the figure colormap determines the coloring of the patch. This example uses the colormap supplied with the data.</p><p class="footer"><br>
+      Published with MATLAB® 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Application Example - Viewing MRI Data
+% An example of scalar data includes magnetic resonance imaging (MRI) data.
+% This data typically contains a number of slice planes taken through a
+% volume, such as the human body. MATLAB includes an MRI data set that
+% contains 27 image slices of a human head. This example illustrate the
+% following techniques applied to MRI data:
+%
+% # A series of 2-D images representing slices through the head
+% # 2-D and 3-D contour slices taken at arbitrary locations within the data
+% # An isosurface with isocaps showing a cross section of the interior
+
+%% Changing the Data Format
+% The MRI data, D, is stored as a 128-by-128-by-1-by-27 array. The third
+% array dimension is used typically for the image color data. However,
+% since these are indexed images (a colormap, map, is also loaded) there is
+% no information in the third dimension, which you can remove using the
+% squeeze command. The result is a 128-by-128-by-27 array.
+
+%%
+% The first step is to load the data and transform the data array from 4-D
+% to 3-D.
+load mri
+D = squeeze(D);
+
+%% Displaying Images of MRI Data
+% To display one of the MRI images, use the image command:
+%
+% * Create a new figure that uses the MRI colormap, which is loaded with the data:
+% * Index into the data array to obtain the data for the eighth image.
+% * Adjust axis scaling.
+%
+figure('Colormap',map)
+image_num = 8;
+image(D(:,:,image_num))
+axis image
+
+%%
+% Save the x- and y-axis limits for use in the next part of the example:
+x = xlim;
+y = ylim;
+
+%% Displaying a 2-D Contour Slice
+% Visualize MRI data as a volume data because it is a collection of slices
+% taken progressively through the 3-D object. Use contourslice to display a
+% contour plot of a volume slice. Create a contour plot with the same
+% orientation and size as the image created in the first part of this
+% example:
+%
+% * Adjust the y-axis direction (axis).
+% * Set the limits (xlim, ylim).
+% * Set the data aspect ratio (daspect).
+%
+% To improve the visibility of details, this contour plot uses the jet
+% colormap. The brighten function reduces the brightness of the color
+% values.
+cm = brighten(jet(length(map)),-.5);
+figure('Colormap',cm)
+contourslice(D,[],[],image_num)
+axis ij
+xlim(x)
+ylim(y)
+daspect([1,1,1])
+
+%% Displaying 3-D Contour Slices
+% Unlike images, which are 2-D objects, contour slices are 3-D objects that
+% you can display in any orientation. For example, you can display four
+% contour slices in a 3-D view.
+figure('Colormap',cm)
+contourslice(D,[],[],[1,12,19,27],8);
+view(3); axis tight
+
+%% Applying an Isosurface to the MRI Data
+% You can use isosurfaces to display the overall structure of a volume.
+% When combined with isocaps, this technique can reveal information about
+% data on the interior of the isosurface.
+%%
+% First, smooth the data with smooth3; then use isosurface to calculate the
+% isodata. Use patch to display this data in a figure that uses the
+% original gray scale color map for the isocaps.
+figure('Colormap',map)
+Ds = smooth3(D);
+hiso = patch(isosurface(Ds,5),...
+    'FaceColor',[1,.75,.65],...
+    'EdgeColor','none');
+isonormals(Ds,hiso)
+
+%%
+% The isonormals function to renders the isosurface using vertex normals
+% obtained from the smoothed data, improving the quality of the isosurface.
+% The isosurface uses a single color to represent its isovalue.
+
+%% Adding Isocaps to Show a Cut-Away Surface
+% Use isocaps to calculate the data for another patch that is displayed at
+% the same isovalue (5) as the isosurface. Use the unsmoothed data (D) to
+% show details of the interior. You can see this as the sliced-away top of
+% the head. The lower isocap is not visible in the final view.
+hcap = patch(isocaps(D,5),...
+    'FaceColor','interp',...
+    'EdgeColor','none');
+
+%% Defining the View
+% Define the view and set the aspect ratio (view, axis, daspect).
+view(35,30) 
+axis tight 
+daspect([1,1,.4])
+
+%% Add Lighting
+% Add lighting and recalculate the surface normals based on the gradient of
+% the volume data, which produces smoother lighting (camlight, lighting,
+% isonormals). Increase the AmbientStrength property of the isocap to
+% brighten the coloring without affecting the isosurface. Set the
+% SpecularColorReflectance of the isosurface to make the color of the
+% specular reflected light closer to the color of the isosurface; then set
+% the SpecularExponent to reduce the size of the specular spot.
+lightangle(45,30);
+set(gcf,'Renderer','zbuffer'); lighting phong
+set(hcap,'AmbientStrength',.6)
+set(hiso,'SpecularColorReflectance',0,'SpecularExponent',50)
+
+%% 
+% An Isocap combined with an isosurface to visualize MRI data. The isocaps
+% use interpolated face coloring, which means the figure colormap
+% determines the coloring of the patch. This example uses the colormap
+% supplied with the data.
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0111)http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part2_HandleGraphics.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><script>window.readcubeExtension = {
+  version: '1.29',
+  id: 'mfacblegickmnfpaebakfnlbfhpoegin'
+};</script>
+      
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Handle Graphics</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2011-09-27"><meta name="DC.source" content="Part2_HandleGraphics.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">FV3TYEPWNNQC-247-563</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">8c4f88f2-6883-4fda-afda-bd69190b40aa</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://sharepoint/marketing/edu/marcom/eduevents/mitiap/_layouts/DocIdRedir.aspx?ID=FV3TYEPWNNQC-247-563, FV3TYEPWNNQC-247-563</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<script async="" src="./Handle Graphics_files/analytics.js.download"></script><script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-1592615-30', 'auto', 'webwwwall');
+  ga('webwwwall.send', 'pageview');
+ 
+</script>
+</head><body><div id="StayFocusd-infobar" style="display:none;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div><div class="content"><h1>Handle Graphics</h1><!--introduction--><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a>, <a href="matlab:vis_tutorial_opencode(&#39;Part2&#39;)">Get code for this tutorial</a></p><p><i><b>Note: You can execute the code from this tutorial by highlighting them, right-clicking, and selecting "Evaluate Selection" (or hit F9).</b></i></p><p>Handle Graphics is concept that MATLAB uses to deal with all MATLAB graphics. By understanding the concept of Handle Graphics, you will be able to customize just about anything graphics related.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part2_HandleGraphics.html#1">Relevant Documentation</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part2_HandleGraphics.html#2">Getting a Handle to a Graphics Object</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part2_HandleGraphics.html#4">Inspecting Graphics Properties (Interactively)</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part2_HandleGraphics.html#6">Accessing Graphics Properties (Programmatically)</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part2_HandleGraphics.html#9">Type of Graphics Object</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part2_HandleGraphics.html#10">Handle Graphics Hierarchy</a></li><li><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/Part2_HandleGraphics.html#13">Finding Handles</a></li></ul></div><h2>Relevant Documentation<a name="1"></a></h2><div><ul><li><a href="matlab:web([docroot,&#39;/techdoc/creating_plots/f7-20419.html&#39;])">Handle Graphics</a></li><li><a href="matlab:web([docroot,&#39;/techdoc/infotool/hgprop/doc_frame.html&#39;])">Handle Graphics Object Hierarchy</a></li></ul></div><h2>Getting a Handle to a Graphics Object<a name="2"></a></h2><p>Almost all plotting functions return a handle to the graphics object. For example, if you call <tt>plot</tt> with an output argument,</p><pre class="codeinput">x = rand(10, 1);
+h = plot(x)
+</pre><pre class="codeoutput">h =
+  176.0028
+</pre><img vspace="5" hspace="5" src="./Handle Graphics_files/Part2_HandleGraphics_01.png" alt=""> <p>you get a "handle" to the line that was plotted. <tt>h</tt> may just look like a number (double precision), but internally MATLAB interprets it as a handle (or a pointer) to the line object.</p><p><b>Give it a Try</b></p><p>Try plotting multiple lines. How many handles do you get back?</p><pre> h2 = plot(rand(10, 3))</pre><h2>Inspecting Graphics Properties (Interactively)<a name="4"></a></h2><p>Now that you have a handle to the graphics object, what can you do with it? You can use the handle to access all the properties associated with the object. You can look at it and change it. To get a view of the current property settings, you can do it interactively.</p><pre> inspect(h)</pre><p><img vspace="5" hspace="5" src="./Handle Graphics_files/inspector.png" alt=""> </p><p>Changing the properties with the Property Inspector will reflect the change immediately.</p><p><b>Give it a Try</b></p><p>Try changing some of the properties and see the effect.</p><h2>Accessing Graphics Properties (Programmatically)<a name="6"></a></h2><p>You can also access graphics properties programmatically using the <tt>get</tt> and <tt>set</tt> commands.</p><pre class="codeinput">get(h)
+</pre><pre class="codeoutput">           DisplayName: ''
+            Annotation: [1x1 hg.Annotation]
+                 Color: [0 0 1]
+             LineStyle: '-'
+             LineWidth: 0.5000
+                Marker: 'none'
+            MarkerSize: 6
+       MarkerEdgeColor: 'auto'
+       MarkerFaceColor: 'none'
+                 XData: [1 2 3 4 5 6 7 8 9 10]
+                 YData: [1x10 double]
+                 ZData: [1x0 double]
+          BeingDeleted: 'off'
+         ButtonDownFcn: []
+              Children: [0x1 double]
+              Clipping: 'on'
+             CreateFcn: []
+             DeleteFcn: []
+            BusyAction: 'queue'
+      HandleVisibility: 'on'
+               HitTest: 'on'
+         Interruptible: 'on'
+              Selected: 'off'
+    SelectionHighlight: 'on'
+                   Tag: ''
+                  Type: 'line'
+         UIContextMenu: []
+              UserData: []
+               Visible: 'on'
+                Parent: 175.0023
+             XDataMode: 'auto'
+           XDataSource: ''
+           YDataSource: ''
+           ZDataSource: ''
+</pre><p>If you want to change the color of the line to read and the line thickness to 3</p><pre class="codeinput">set(h, <span class="string">'Color'</span>, <span class="string">'red'</span>, <span class="string">'LineWidth'</span>, 3)
+</pre><img vspace="5" hspace="5" src="./Handle Graphics_files/Part2_HandleGraphics_02.png" alt=""> <p><b>Getting the Underlying Data</b></p><p>MATLAB plots contain the underlying data as well, so you can extract the data directly from their handles:</p><pre class="codeinput">get(h, <span class="string">'XData'</span>)
+get(h, <span class="string">'YData'</span>)
+</pre><pre class="codeoutput">ans =
+  Columns 1 through 9
+     1     2     3     4     5     6     7     8     9
+  Column 10
+    10
+ans =
+  Columns 1 through 5
+    0.8147    0.9058    0.1270    0.9134    0.6324
+  Columns 6 through 10
+    0.0975    0.2785    0.5469    0.9575    0.9649
+</pre><h2>Type of Graphics Object<a name="9"></a></h2><p>In addition to knowing that each graphics object has a set of properties, it's important to know that there are different <i>types</i> of graphic objects. You can get that by the <tt>type</tt> property:</p><pre class="codeinput">get(h, <span class="string">'Type'</span>)
+</pre><pre class="codeoutput">ans =
+line
+</pre><h2>Handle Graphics Hierarchy<a name="10"></a></h2><p>What are the different types of graphics objects and how are they related?</p><p>An important concept to understand is the <a href="matlab:web([docroot,&#39;/techdoc/infotool/hgprop/doc_frame.html&#39;])">Handle Graphics Hierarchy</a>. Only certain types graphics objects can reside within a particular object. For example, a <a href="matlab:web([docroot,&#39;/techdoc/infotool/hgprop/line_frame.html&#39;])">line</a> object can be placed inside an <a href="matlab:web([docroot,&#39;/techdoc/infotool/hgprop/axes_frame.html&#39;])">axes</a> object, but not inside a <a href="matlab:web([docroot,&#39;/techdoc/infotool/hgprop/figure_frame.html&#39;])">figure</a> object. That means that, in order to plot a line, there must also be an axes. Conveniently, when you try to plot a line, MATLAB takes care of that by creating new axes if one does not exist.</p><p>This hierarchy is represented with a parent-children concept. An object can only have one parent, while a parent can have multiple children. For example, we can get the handle to the parent object for the line:</p><pre class="codeinput">ph = get(h, <span class="string">'Parent'</span>)
+</pre><pre class="codeoutput">ph =
+  175.0023
+</pre><p>And we can see the properties of the parent object:</p><pre class="codeinput">get(ph)
+</pre><pre class="codeoutput">	ActivePositionProperty = outerposition
+	ALim = [0 1]
+	ALimMode = auto
+	AmbientLightColor = [1 1 1]
+	Box = on
+	CameraPosition = [5.5 0.5 17.3205]
+	CameraPositionMode = auto
+	CameraTarget = [5.5 0.5 0]
+	CameraTargetMode = auto
+	CameraUpVector = [0 1 0]
+	CameraUpVectorMode = auto
+	CameraViewAngle = [6.60861]
+	CameraViewAngleMode = auto
+	CLim = [0 1]
+	CLimMode = auto
+	Color = [1 1 1]
+	CurrentPoint = [ (2 by 3) double array]
+	ColorOrder = [ (7 by 3) double array]
+	DataAspectRatio = [9 1 2]
+	DataAspectRatioMode = auto
+	DrawMode = normal
+	FontAngle = normal
+	FontName = Helvetica
+	FontSize = [10]
+	FontUnits = points
+	FontWeight = normal
+	GridLineStyle = :
+	Layer = bottom
+	LineStyleOrder = -
+	LineWidth = [0.5]
+	MinorGridLineStyle = :
+	NextPlot = replace
+	OuterPosition = [0 0 1 1]
+	PlotBoxAspectRatio = [1 1 1]
+	PlotBoxAspectRatioMode = auto
+	Projection = orthographic
+	Position = [0.13 0.11 0.775 0.815]
+	TickLength = [0.01 0.025]
+	TickDir = in
+	TickDirMode = auto
+	TightInset = [0.0392857 0.0404762 0.0142857 0.0190476]
+	Title = [180.002]
+	Units = normalized
+	View = [0 90]
+	XColor = [0 0 0]
+	XDir = normal
+	XGrid = off
+	XLabel = [177.002]
+	XAxisLocation = bottom
+	XLim = [1 10]
+	XLimMode = auto
+	XMinorGrid = off
+	XMinorTick = off
+	XScale = linear
+	XTick = [ (1 by 10) double array]
+	XTickLabel = 
+		1 
+		2 
+		3 
+		4 
+		5 
+		6 
+		7 
+		8 
+		9 
+		10
+	XTickLabelMode = auto
+	XTickMode = auto
+	YColor = [0 0 0]
+	YDir = normal
+	YGrid = off
+	YLabel = [178.002]
+	YAxisLocation = left
+	YLim = [0 1]
+	YLimMode = auto
+	YMinorGrid = off
+	YMinorTick = off
+	YScale = linear
+	YTick = [ (1 by 11) double array]
+	YTickLabel = [ (11 by 3) char array]
+	YTickLabelMode = auto
+	YTickMode = auto
+	ZColor = [0 0 0]
+	ZDir = normal
+	ZGrid = off
+	ZLabel = [179.002]
+	ZLim = [-1 1]
+	ZLimMode = auto
+	ZMinorGrid = off
+	ZMinorTick = off
+	ZScale = linear
+	ZTick = [-1 0 1]
+	ZTickLabel = 
+	ZTickLabelMode = auto
+	ZTickMode = auto
+
+	BeingDeleted = off
+	ButtonDownFcn = 
+	Children = [176.003]
+	Clipping = on
+	CreateFcn = 
+	DeleteFcn = 
+	BusyAction = queue
+	HandleVisibility = on
+	HitTest = on
+	Interruptible = on
+	Parent = [174.002]
+	Selected = off
+	SelectionHighlight = on
+	Tag = 
+	Type = axes
+	UIContextMenu = []
+	UserData = []
+	Visible = on
+
+</pre><p>With this technique, you can pretty much access any graphics objects by traversing up and down the hierarchy.</p><h2>Finding Handles<a name="13"></a></h2><p>What if I don't have a handle to work with? For example, if I happen to call the plotting commands without any output arguments. Or if I just open a FIG file:</p><pre class="codeinput">openfig(<span class="string">'Fig1.fig'</span>)
+</pre><img vspace="5" hspace="5" src="./Handle Graphics_files/Part2_HandleGraphics_03.png" alt=""> <p>There are a number of techniques you can use to get the handles of existing graphic objects:</p><div><ul><li><a href="matlab:doc(&#39;gcf&#39;)"><tt>gcf</tt></a> - handle of the current figure. MATLAB has a concept of a "current" figure.</li><li><a href="matlab:doc(&#39;gca&#39;)"><tt>gca</tt></a> - handle of the current axes.</li><li><a href="matlab:doc(&#39;gco&#39;)"><tt>gco</tt></a> - handle of the current object. This returns the handle of the last clicked object. The object could be anything, including axes and figures.</li><li><a href="matlab:doc(&#39;findobj&#39;)"><tt>findobj</tt></a> - find objects with specific properties.</li><li><a href="matlab:doc(&#39;findall&#39;)"><tt>findall</tt></a> - find objects (including hidden objects).</li></ul></div><p><b>Give it a Try</b></p><div><ol><li>Open "Fig1.fig".</li><li>Click on the green line with dots (on the right axes) and use <tt>gco</tt> to get the handle of the line object. Access and change some of the properties of the line.</li><li>Find all lines with color blue:</li></ol></div><pre>     h = findobj('Type', 'line', 'Color', 'blue')</pre><p><a href="http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html">Table of Contents</a></p><p class="footer">Copyright 2010 The MathWorks, Inc.<br>
+      Published with MATLAB® 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Handle Graphics
+% <TOC.html Table of Contents>, <matlab:vis_tutorial_opencode('Part2') Get
+% code for this tutorial>
+%
+% _*Note: You can execute the code from this tutorial by highlighting them,
+% right-clicking, and selecting "Evaluate Selection" (or hit F9).*_
+%
+% Handle Graphics is concept that MATLAB uses to deal with all MATLAB
+% graphics. By understanding the concept of Handle Graphics, you will be
+% able to customize just about anything graphics related.
+
+% Copyright 2010 The MathWorks, Inc.
+
+%% Relevant Documentation
+%
+% * <matlab:web([docroot,'/techdoc/creating_plots/f7-20419.html']) Handle
+% Graphics>
+% * <matlab:web([docroot,'/techdoc/infotool/hgprop/doc_frame.html']) Handle
+% Graphics Object Hierarchy>
+
+%% Getting a Handle to a Graphics Object
+% Almost all plotting functions return a handle to the graphics object. For
+% example, if you call |plot| with an output argument, 
+
+x = rand(10, 1);
+h = plot(x)
+
+%%
+% you get a "handle" to the line that was plotted. |h| may just look like a
+% number (double precision), but internally MATLAB interprets it as a
+% handle (or a pointer) to the line object.
+%
+% *Give it a Try*
+%
+% Try plotting multiple lines. How many handles do you get back?
+%
+%   h2 = plot(rand(10, 3))
+
+%% Inspecting Graphics Properties (Interactively)
+% Now that you have a handle to the graphics object, what can you do with
+% it? You can use the handle to access all the properties associated with
+% the object. You can look at it and change it. To get a view of the
+% current property settings, you can do it interactively.
+%
+%   inspect(h)
+
+%%
+% <<inspector.png>>
+%
+% Changing the properties with the Property Inspector will reflect the
+% change immediately.
+%
+% *Give it a Try*
+%
+% Try changing some of the properties and see the effect.
+
+
+%% Accessing Graphics Properties (Programmatically)
+% You can also access graphics properties programmatically using the |get|
+% and |set| commands.
+
+get(h)
+
+%%
+% If you want to change the color of the line to read and the line
+% thickness to 3
+
+set(h, 'Color', 'red', 'LineWidth', 3)
+
+%%
+% *Getting the Underlying Data*
+%
+% MATLAB plots contain the underlying data as well, so you can extract the
+% data directly from their handles:
+
+get(h, 'XData')
+get(h, 'YData')
+
+%% Type of Graphics Object
+% In addition to knowing that each graphics object has a set of properties,
+% it's important to know that there are different _types_ of graphic
+% objects. You can get that by the |type| property:
+
+get(h, 'Type')
+
+%% Handle Graphics Hierarchy
+% What are the different types of graphics objects and how are they
+% related?
+%
+% An important concept to understand is the
+% <matlab:web([docroot,'/techdoc/infotool/hgprop/doc_frame.html']) Handle
+% Graphics Hierarchy>. Only certain types graphics objects can reside
+% within a particular object. For example, a
+% <matlab:web([docroot,'/techdoc/infotool/hgprop/line_frame.html']) line>
+% object can be placed inside an
+% <matlab:web([docroot,'/techdoc/infotool/hgprop/axes_frame.html']) axes>
+% object, but not inside a
+% <matlab:web([docroot,'/techdoc/infotool/hgprop/figure_frame.html'])
+% figure> object. That means that, in order to plot a line, there must also
+% be an axes. Conveniently, when you try to plot a line, MATLAB takes care
+% of that by creating new axes if one does not exist.
+%
+% This hierarchy is represented with a parent-children concept. An object
+% can only have one parent, while a parent can have multiple children. For
+% example, we can get the handle to the parent object for the line:
+
+ph = get(h, 'Parent')
+
+%%
+% And we can see the properties of the parent object:
+
+get(ph)
+
+%%
+% With this technique, you can pretty much access any graphics objects by
+% traversing up and down the hierarchy.
+
+%% Finding Handles
+% What if I don't have a handle to work with? For example, if I happen to
+% call the plotting commands without any output arguments. Or if I just
+% open a FIG file:
+
+openfig('Fig1.fig')
+
+%%
+% There are a number of techniques you can use to get the handles of
+% existing graphic objects:
+%
+% * <matlab:doc('gcf') |gcf|> - handle of the current figure. MATLAB has a
+% concept of a "current" figure.
+% * <matlab:doc('gca') |gca|> - handle of the current axes.
+% * <matlab:doc('gco') |gco|> - handle of the current object. This returns
+% the handle of the last clicked object. The object could be anything,
+% including axes and figures.
+% * <matlab:doc('findobj') |findobj|> - find objects with specific
+% properties.
+% * <matlab:doc('findall') |findall|> - find objects (including hidden
+% objects).
+%
+% *Give it a Try*
+%
+% # Open "Fig1.fig".
+% # Click on the green line with dots (on the right axes) and use |gco| to
+% get the handle of the line object. Access and change some of the
+% properties of the line.
+% # Find all lines with color blue:
+%
+%       h = findobj('Type', 'line', 'Color', 'blue')
+%
+% <TOC.html Table of Contents>
+
+##### SOURCE END #####
+--></body></html>
