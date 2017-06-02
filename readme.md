@@ -63,3 +63,15 @@ interparc: Distance based interpolation along a general curve in space
 
 [official interparc]: https://se.mathworks.com/matlabcentral/fileexchange/34874-interparc  
 
+## MIT matlabplot
+http://web.mit.edu/8.13/matlab/MatlabTraining_IAP_2012/AGV/DemoFiles/ScriptFiles/html/TOC.html
+
+## matImage
+
+Image Processing library for Matlab, as a complement to the Image Processing Toolbox (IPT).
+
+[official matImage](https://github.com/dlegland/matImage)
+
+install:
+
+`git submodule add git@github.com:dlegland/matImage.git` 

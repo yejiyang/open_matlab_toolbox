@@ -10,3 +10,6 @@
 [submodule "segymat"]
 	path = segymat
 	url = git@github.com:cultpenguin/segymat.git
+[submodule "matImage"]
+	path = matImage
+	url = git@github.com:dlegland/matImage.git
