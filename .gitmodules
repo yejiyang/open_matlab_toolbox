@@ -13,3 +13,6 @@
 [submodule "matImage"]
 	path = matImage
 	url = git@github.com:dlegland/matImage.git
+[submodule "iso2mesh"]
+	path = iso2mesh
+	url = git@github.com:fangq/iso2mesh.git

@@ -75,3 +75,12 @@ Image Processing library for Matlab, as a complement to the Image Processing Too
 install:
 
 `git submodule add git@github.com:dlegland/matImage.git` 
+
+## iso2mesh
+iso2mesh - a 3D surface and volumetric mesh generator for MATLAB/Octave
+
+[official iso2mesh](https://github.com/fangq/iso2mesh)
+
+install:
+
+`git@github.com:fangq/iso2mesh.git`
