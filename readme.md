@@ -84,3 +84,12 @@ iso2mesh - a 3D surface and volumetric mesh generator for MATLAB/Octave
 install:
 
 `git@github.com:fangq/iso2mesh.git`
+
+## MBeautifier
+MBeautifier is a Matlab source code formatter, beautifier. It can be used directly in the Matlab Editor and it is configurable.
+
+[official MBeautifier](https://github.com/davidvarga/MBeautifier)
+
+install:
+
+`git submodule add git@github.com:davidvarga/MBeautifier.git`

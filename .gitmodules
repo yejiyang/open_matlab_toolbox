@@ -16,3 +16,6 @@
 [submodule "iso2mesh"]
 	path = iso2mesh
 	url = git@github.com:fangq/iso2mesh.git
+[submodule "MBeautifier"]
+	path = MBeautifier
+	url = git@github.com:davidvarga/MBeautifier.git
