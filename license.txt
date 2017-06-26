@@ -1,4 +1,4 @@
-Copyright (c) 2016, John D'Errico
+Copyright (c) 2004, Denis Gilbert
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
